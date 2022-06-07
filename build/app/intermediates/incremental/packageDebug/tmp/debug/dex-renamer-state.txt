@@ -1,4 +1,4 @@
-#Sun Jun 05 13:45:10 IST 2022
-base.0=E\:\\vistoxs\\vistox\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Tue Jun 07 17:07:33 IST 2022
+base.0=/Users/thecybertizehemant/Documents/flutterproject/dummy/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
