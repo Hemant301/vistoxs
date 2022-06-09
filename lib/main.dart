@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vistox/Home/HomeScreen.dart';
+import 'package:vistox/Home/category.dart';
+import 'package:vistox/nav/navigationbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,11 +20,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             // fontFamily: font,
             ),
-        initialRoute: ('/HomeScreen'),
+        initialRoute: ('/navigationbar'),
         routes: {
           "/HomeScreen": (context) => HomeScreen(),
-          // "/splashScreen": (context) => Splash_Screen(),
-          // "/event": (context) => EventPage(),
+          "/navigationbar": (context) => NavBar(),
+          "/category": (context) => Category(),
           // "/bottompage": (context) => Bottomnavigation(),
         });
   }

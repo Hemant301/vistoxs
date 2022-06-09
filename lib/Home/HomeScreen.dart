@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: new PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: Container(
-            height: 100,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -53,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: 30,
@@ -78,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]),
                         ),
                         Container(
-                          padding: EdgeInsets.all(3),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                           decoration: BoxDecoration(
                               color: Colors.amber,
                               borderRadius: BorderRadius.circular(10),
@@ -94,24 +94,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                 colors: [
                                   Colors.yellow,
                                   Color.fromARGB(255, 234, 189, 84),
-                                  Color.fromARGB(255, 241, 213, 0),
-                                  Color.fromARGB(255, 254, 238, 12),
+                                  Color.fromARGB(255, 216, 170, 18),
+                                  Color.fromARGB(255, 255, 183, 0),
                                 ],
                               )
                               // border: Border.all(color: Color.fromARGB(255, 202, 195, 195)
                               // ),
                               ),
-                          width: MediaQuery.of(context).size.width / 5,
+                          // width: MediaQuery.of(context).size.width / 5,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Image.asset("assets/wallet 1.png"),
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Text("100"),
                               ]),
                         ),
-                        Icon(Icons.search),
+                        // Icon(Icons.search),
                         Icon(Icons.notification_add)
                       ]),
+                  Container(
+                    // color: Colors.grey,
+                    height: 40,
+                    width: MediaQuery.of(context).size.width - 30,
+                    child: Row(children: [
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(Icons.search, color: Colors.grey[500]),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Tap here to search for stores ,product,brands,etc",
+                        style: TextStyle(color: Colors.grey[400]),
+                      )
+                    ]),
+                  )
                 ],
               ),
             ),
@@ -139,43 +160,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   physics: NeverScrollableScrollPhysics(),
                   children: List.generate(
                     appCatData.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 5),
-                      child: Container(
-                        // height: MediaQuery.of(context).size.width / 4,
-                        // width: MediaQuery.of(context).size.width / 4 + 30,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black45.withOpacity(.1),
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset:
-                                  Offset(1, 2), // changes position of shadow
-                            )
-                          ],
-                        ),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                appCatData[index].image!,
-                                height: 40,
-                                width: 40,
-                                // colorBlendMode: BlendMode.colorBurn,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                appCatData[index].title!,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                    (index) => InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/category");
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 5),
+                        child: Container(
+                          // height: MediaQuery.of(context).size.width / 4,
+                          // width: MediaQuery.of(context).size.width / 4 + 30,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black45.withOpacity(.1),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset:
+                                    Offset(1, 2), // changes position of shadow
                               )
-                            ]),
+                            ],
+                          ),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  appCatData[index].image!,
+                                  height: 40,
+                                  width: 40,
+                                  // colorBlendMode: BlendMode.colorBurn,
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  appCatData[index].title!,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )
+                              ]),
+                        ),
                       ),
                     ),
                   )),
@@ -444,28 +470,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Stack(
                                     clipBehavior: Clip.none,
                                     children: [
-                                      Container(
-                                          width: MediaQuery.of(
-                                                          context)
-                                                      .size
-                                                      .width /
-                                                  3 +
-                                              20,
-                                          height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  3 -
-                                              10,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/dummy/3.png"),
-                                                fit: BoxFit.fill),
-                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                            width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3 +
+                                                20,
+                                            height: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3 -
+                                                10,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/dummy/3.png"),
+                                                  fit: BoxFit.fill),
+                                            )),
+                                      ),
                                       Positioned(
-                                          bottom: -15,
+                                          bottom: -8,
                                           right: 0,
                                           left: 0,
                                           child: Center(
@@ -523,267 +551,267 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Popular Cuisines",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // letterSpacing: 1,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(
-                            4,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 5,
-                                      height:
-                                          MediaQuery.of(context).size.width / 5,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg"),
-                                            fit: BoxFit.fill),
-                                      )),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Center(
-                                    child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                5,
-                                        child: Text(
-                                          "Football",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        )),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(
-                            4,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 5,
-                                      height:
-                                          MediaQuery.of(context).size.width / 5,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg"),
-                                            fit: BoxFit.fill),
-                                      )),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Center(
-                                    child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                5,
-                                        child: Text(
-                                          "Football",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                        )),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ))
-                  ]),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Great Deals On Online Delivery",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // letterSpacing: 1,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(
-                            4,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Container(
-                                          width: MediaQuery.of(
-                                                          context)
-                                                      .size
-                                                      .width /
-                                                  3 +
-                                              20,
-                                          height: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2 +
-                                              20,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg"),
-                                                fit: BoxFit.fill),
-                                          )),
-                                      Positioned(
-                                          bottom: -15,
-                                          right: 0,
-                                          left: 0,
-                                          child: Center(
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black45
-                                                          .withOpacity(.2),
-                                                      spreadRadius: 2,
-                                                      blurRadius: 2,
-                                                      offset: Offset(1,
-                                                          2), // changes position of shadow
-                                                    )
-                                                  ],
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3.5,
-                                                padding: EdgeInsets.all(5),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text("Home "),
-                                                    Text(
-                                                      "Delivery",
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              156,
-                                                              6,
-                                                              232)),
-                                                    ),
-                                                  ],
-                                                )),
-                                          ))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Container(
-                                      width: MediaQuery.of(context).size.width /
-                                              2 -
-                                          30,
-                                      child: Text(
-                                        "Nike Andheri Sports Superstore",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      )),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Container(
-                                      width: MediaQuery.of(context).size.width /
-                                              3 +
-                                          20,
-                                      child: Text(
-                                        "Delivers in 3 hrs",
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      )),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "₹2589",
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            decoration:
-                                                TextDecoration.lineThrough),
-                                      ),
-                                      Text(
-                                        " ₹1586",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ))
-                  ]),
+              // Column(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: Text(
+              //           "Popular Cuisines",
+              //           textAlign: TextAlign.start,
+              //           style: TextStyle(
+              //               color: Colors.black,
+              //               // letterSpacing: 1,
+              //               // fontWeight: FontWeight.bold,
+              //               fontSize: 18),
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         height: 15,
+              //       ),
+              //       SingleChildScrollView(
+              //           scrollDirection: Axis.horizontal,
+              //           child: Row(
+              //             children: List.generate(
+              //               4,
+              //               (index) => Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: Column(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   crossAxisAlignment: CrossAxisAlignment.center,
+              //                   children: [
+              //                     Container(
+              //                         width:
+              //                             MediaQuery.of(context).size.width / 5,
+              //                         height:
+              //                             MediaQuery.of(context).size.width / 5,
+              //                         decoration: BoxDecoration(
+              //                           shape: BoxShape.circle,
+              //                           image: DecorationImage(
+              //                               image: NetworkImage(
+              //                                   "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg"),
+              //                               fit: BoxFit.fill),
+              //                         )),
+              //                     SizedBox(
+              //                       height: 10,
+              //                     ),
+              //                     Center(
+              //                       child: Container(
+              //                           width:
+              //                               MediaQuery.of(context).size.width /
+              //                                   5,
+              //                           child: Text(
+              //                             "Football",
+              //                             textAlign: TextAlign.center,
+              //                             style: TextStyle(
+              //                               color: Colors.black,
+              //                             ),
+              //                           )),
+              //                     )
+              //                   ],
+              //                 ),
+              //               ),
+              //             ),
+              //           )),
+              //       // SizedBox(
+              //       //   height: 10,
+              //       // ),
+              //       SingleChildScrollView(
+              //           scrollDirection: Axis.horizontal,
+              //           child: Row(
+              //             children: List.generate(
+              //               4,
+              //               (index) => Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: Column(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   crossAxisAlignment: CrossAxisAlignment.center,
+              //                   children: [
+              //                     Container(
+              //                         width:
+              //                             MediaQuery.of(context).size.width / 5,
+              //                         height:
+              //                             MediaQuery.of(context).size.width / 5,
+              //                         decoration: BoxDecoration(
+              //                           shape: BoxShape.circle,
+              //                           image: DecorationImage(
+              //                               image: NetworkImage(
+              //                                   "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg"),
+              //                               fit: BoxFit.fill),
+              //                         )),
+              //                     SizedBox(
+              //                       height: 10,
+              //                     ),
+              //                     Center(
+              //                       child: Container(
+              //                           width:
+              //                               MediaQuery.of(context).size.width /
+              //                                   5,
+              //                           child: Text(
+              //                             "Football",
+              //                             textAlign: TextAlign.center,
+              //                             style: TextStyle(
+              //                               color: Colors.black,
+              //                             ),
+              //                           )),
+              //                     )
+              //                   ],
+              //                 ),
+              //               ),
+              //             ),
+              //           ))
+              //     ]),
+              // Column(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: Text(
+              //           "Great Deals On Online Delivery",
+              //           textAlign: TextAlign.start,
+              //           style: TextStyle(
+              //               color: Colors.black,
+              //               // letterSpacing: 1,
+              //               // fontWeight: FontWeight.bold,
+              //               fontSize: 18),
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         height: 15,
+              //       ),
+              //       SingleChildScrollView(
+              //           scrollDirection: Axis.horizontal,
+              //           child: Row(
+              //             children: List.generate(
+              //               4,
+              //               (index) => Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: Column(
+              //                   mainAxisAlignment: MainAxisAlignment.start,
+              //                   crossAxisAlignment: CrossAxisAlignment.start,
+              //                   children: [
+              //                     Stack(
+              //                       clipBehavior: Clip.none,
+              //                       children: [
+              //                         Container(
+              //                             width: MediaQuery.of(
+              //                                             context)
+              //                                         .size
+              //                                         .width /
+              //                                     3 +
+              //                                 20,
+              //                             height: MediaQuery.of(context)
+              //                                         .size
+              //                                         .width /
+              //                                     2 +
+              //                                 20,
+              //                             decoration: BoxDecoration(
+              //                               borderRadius:
+              //                                   BorderRadius.circular(20),
+              //                               image: DecorationImage(
+              //                                   image: NetworkImage(
+              //                                       "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg"),
+              //                                   fit: BoxFit.fill),
+              //                             )),
+              //                         Positioned(
+              //                             bottom: -15,
+              //                             right: 0,
+              //                             left: 0,
+              //                             child: Center(
+              //                               child: Container(
+              //                                   decoration: BoxDecoration(
+              //                                     boxShadow: [
+              //                                       BoxShadow(
+              //                                         color: Colors.black45
+              //                                             .withOpacity(.2),
+              //                                         spreadRadius: 2,
+              //                                         blurRadius: 2,
+              //                                         offset: Offset(1,
+              //                                             2), // changes position of shadow
+              //                                       )
+              //                                     ],
+              //                                     color: Colors.white,
+              //                                     borderRadius:
+              //                                         BorderRadius.circular(8),
+              //                                   ),
+              //                                   width: MediaQuery.of(context)
+              //                                           .size
+              //                                           .width /
+              //                                       3.5,
+              //                                   padding: EdgeInsets.all(5),
+              //                                   child: Row(
+              //                                     mainAxisAlignment:
+              //                                         MainAxisAlignment.center,
+              //                                     children: [
+              //                                       Text("Home "),
+              //                                       Text(
+              //                                         "Delivery",
+              //                                         style: TextStyle(
+              //                                             color: Color.fromARGB(
+              //                                                 255,
+              //                                                 156,
+              //                                                 6,
+              //                                                 232)),
+              //                                       ),
+              //                                     ],
+              //                                   )),
+              //                             ))
+              //                       ],
+              //                     ),
+              //                     SizedBox(
+              //                       height: 20,
+              //                     ),
+              //                     Container(
+              //                         width: MediaQuery.of(context).size.width /
+              //                                 2 -
+              //                             30,
+              //                         child: Text(
+              //                           "Nike Andheri Sports Superstore",
+              //                           style: TextStyle(
+              //                               fontWeight: FontWeight.bold,
+              //                               fontSize: 15),
+              //                         )),
+              //                     SizedBox(
+              //                       height: 3,
+              //                     ),
+              //                     Container(
+              //                         width: MediaQuery.of(context).size.width /
+              //                                 3 +
+              //                             20,
+              //                         child: Text(
+              //                           "Delivers in 3 hrs",
+              //                           style: TextStyle(
+              //                             color: Colors.grey,
+              //                           ),
+              //                         )),
+              //                     SizedBox(
+              //                       height: 3,
+              //                     ),
+              //                     Row(
+              //                       children: [
+              //                         Text(
+              //                           "₹2589",
+              //                           style: TextStyle(
+              //                               color: Colors.grey,
+              //                               decoration:
+              //                                   TextDecoration.lineThrough),
+              //                         ),
+              //                         Text(
+              //                           " ₹1586",
+              //                           style: TextStyle(
+              //                               color: Colors.black,
+              //                               fontWeight: FontWeight.bold),
+              //                         )
+              //                       ],
+              //                     )
+              //                   ],
+              //                 ),
+              //               ),
+              //             ),
+              //           ))
+              //     ]),
               SizedBox(
                 height: 20,
               ),
@@ -832,8 +860,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                    image: NetworkImage(
-                                                      "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg",
+                                                    image: AssetImage(
+                                                      "assets/dummy/70%dis.png",
                                                     ),
                                                     fit: BoxFit.fill)),
                                           ),
@@ -988,8 +1016,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 image: DecorationImage(
-                                                    image: NetworkImage(
-                                                      "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg",
+                                                    image: AssetImage(
+                                                      "assets/dummy/40%dis.png",
                                                     ),
                                                     fit: BoxFit.fill)),
                                           ),
@@ -1381,8 +1409,8 @@ class All extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                    "https://media-cdn.tripadvisor.com/media/photo-s/10/d2/5d/6c/the-food-shop-harlow.jpg",
+                                  image: AssetImage(
+                                    "assets/dummy/macdonal.png",
                                   ),
                                   fit: BoxFit.fill)),
                         ),
