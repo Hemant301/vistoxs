@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 import 'package:vistox/Home/homeslider.dart';
 import 'package:vistox/Modal/HomePageModal.dart';
+import 'package:vistox/Modal/homemodal.dart';
+import 'package:vistox/bloc/homebloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,8 +13,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ScrollController scrollController = ScrollController();
+  bool showFilter = false;
   bool isactive = false;
   int activeTab = 0;
+  double scrollPixel = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homebloc.fetchHomeSlider();
+    homebloc.fetchHomeCategory();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels > scrollPixel) {
+        setState(() {
+          showFilter = true;
+          scrollPixel = scrollController.position.pixels;
+        });
+      } else if (scrollController.position.pixels < scrollPixel) {
+        setState(() {
+          showFilter = false;
+          scrollPixel = scrollController.position.pixels;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     switchWithInt() {
@@ -55,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Row(
@@ -138,6 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           )),
       body: SingleChildScrollView(
+        controller: scrollController,
         scrollDirection: Axis.vertical,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -146,65 +174,72 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              GridView(
-                  padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      // mainAxisSpacing: 5,
-                      // crossAxisSpacing: 5,
-                      childAspectRatio: 2.5 / 2.1),
-                  shrinkWrap: true,
-                  // crossAxisCount: 2,
-                  // crossAxisSpacing: 1,
-                  // mainAxisSpacing: 10,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(
-                    appCatData.length,
-                    (index) => InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/category");
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 5),
-                        child: Container(
-                          // height: MediaQuery.of(context).size.width / 4,
-                          // width: MediaQuery.of(context).size.width / 4 + 30,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black45.withOpacity(.1),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset:
-                                    Offset(1, 2), // changes position of shadow
-                              )
-                            ],
+              StreamBuilder<SupercatModal>(
+                  stream: homebloc.getHomeCategory.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return GridView(
+                        padding: EdgeInsets.zero,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            // mainAxisSpacing: 5,
+                            // crossAxisSpacing: 5,
+                            childAspectRatio: 2.5 / 2.1),
+                        shrinkWrap: true,
+                        // crossAxisCount: 2,
+                        // crossAxisSpacing: 1,
+                        // mainAxisSpacing: 10,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: List.generate(
+                          appCatData.length,
+                          (index) => InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/category");
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 5),
+                              child: Container(
+                                // height: MediaQuery.of(context).size.width / 4,
+                                // width: MediaQuery.of(context).size.width / 4 + 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black45.withOpacity(.1),
+                                      spreadRadius: 2,
+                                      blurRadius: 2,
+                                      offset: Offset(
+                                          1, 2), // changes position of shadow
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        snapshot.data!.data[index].image!,
+                                        height: 40,
+                                        width: 40,
+                                        // colorBlendMode: BlendMode.colorBurn,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        snapshot.data!.data[index].name!,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ]),
+                              ),
+                            ),
                           ),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  appCatData[index].image!,
-                                  height: 40,
-                                  width: 40,
-                                  // colorBlendMode: BlendMode.colorBurn,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  appCatData[index].title!,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )
-                              ]),
-                        ),
-                      ),
-                    ),
-                  )),
+                        ));
+                  }),
               SizedBox(
                 height: 20,
               ),
@@ -1382,6 +1417,12 @@ class _HomeScreenState extends State<HomeScreen> {
               switchWithInt()
             ]),
       ),
+      floatingActionButton: showFilter == true
+          ? Container(
+              padding: EdgeInsets.all(20),
+              color: Colors.red,
+              child: Icon(Icons.abc))
+          : Container(),
     );
   }
 }
