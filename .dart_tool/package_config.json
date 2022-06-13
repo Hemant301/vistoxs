@@ -92,6 +92,18 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "http",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0",
       "packageUri": "lib/",
@@ -124,6 +136,18 @@
     {
       "name": "path",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "rxdart",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -188,7 +212,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-06-12T00:01:03.412383Z",
+  "generated": "2022-06-12T00:10:35.870268Z",
   "generator": "pub",
   "generatorVersion": "2.17.1"
 }

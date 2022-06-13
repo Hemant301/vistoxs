@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vistox/Home/HomeScreen.dart';
+import 'package:vistox/Home/category.dart';
+import 'package:vistox/discription/productdiscription.dart';
+import 'package:vistox/nav/navigationbar.dart';
+import 'package:vistox/profileitem/helpSupport.dart';
+import 'package:vistox/profileitem/notification.dart';
+import 'package:vistox/profileitem/setting.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,12 +24,15 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             // fontFamily: font,
             ),
-        initialRoute: ('/HomeScreen'),
+        initialRoute: ('/navigationbar'),
         routes: {
           "/HomeScreen": (context) => HomeScreen(),
-          // "/splashScreen": (context) => Splash_Screen(),
-          // "/event": (context) => EventPage(),
-          // "/bottompage": (context) => Bottomnavigation(),
+          "/navigationbar": (context) => NavBar(),
+          "/category": (context) => Category(),
+          "/helpSupport": (context) => helpSupport(),
+          "/setting": (context) => Settings(),
+          "/notification": (context) => NotificationPage(),
+          "/productdiscription": (context) => ProductDiscription(),
         });
   }
 }
