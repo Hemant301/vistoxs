@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/semantics.dart';
-
 import 'package:vistox/Modal/homemodal.dart';
 import 'package:vistox/api/homeapi.dart';
 
@@ -13,8 +10,20 @@ class HomeRepo {
     return SliderModal(jsonResponse);
   }
 
-  Future<SupercatModal> fetchHomeCategory() async {
+  Future<SuperAppModal> fetchHomeCategory() async {
     final response = await homeApi.fetchHomeCategory();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return SuperAppModal(jsonResponse);
+  }
+
+  Future<HomeNearbyModal> fetchHomeNearby() async {
+    final response = await homeApi.fetchHomeNearby();
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return HomeNearbyModal(jsonResponse);
+  }
+
+  Future<SupercatModal> fetchSupercat(id) async {
+    final response = await homeApi.fetchSupercat(id);
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;
     return SupercatModal(jsonResponse);
   }

@@ -20,17 +20,49 @@ class HomeBloc {
     }
   }
 
-  final BehaviorSubject<SupercatModal> _liveHomecategory =
-      BehaviorSubject<SupercatModal>();
+  final BehaviorSubject<SuperAppModal> _liveHomecategory =
+      BehaviorSubject<SuperAppModal>();
 
-  BehaviorSubject<SupercatModal> get getHomeCategory => _liveHomecategory;
+  BehaviorSubject<SuperAppModal> get getHomeCategory => _liveHomecategory;
 
   fetchHomeCategory() async {
     try {
-      SupercatModal homeSlider = await _homeRepo.fetchHomeCategory();
+      SuperAppModal homeSlider = await _homeRepo.fetchHomeCategory();
       // print(homeSlider.imgs!.length);
 
       _liveHomecategory.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<HomeNearbyModal> _liveHomeNearby =
+      BehaviorSubject<HomeNearbyModal>();
+
+  BehaviorSubject<HomeNearbyModal> get getHomeNearby => _liveHomeNearby;
+
+  fetchHomeNearby() async {
+    try {
+      HomeNearbyModal homeSlider = await _homeRepo.fetchHomeNearby();
+      // print(homeSlider.imgs!.length);
+
+      _liveHomeNearby.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<SupercatModal> _liveSupercat =
+      BehaviorSubject<SupercatModal>();
+
+  BehaviorSubject<SupercatModal> get getSupercat => _liveSupercat;
+
+  fetchSupercat(id) async {
+    try {
+      SupercatModal homeSlider = await _homeRepo.fetchSupercat(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSupercat.add(homeSlider);
     } catch (e) {
       print(e);
     }

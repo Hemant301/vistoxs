@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              StreamBuilder<SupercatModal>(
+              StreamBuilder<SuperAppModal>(
                   stream: homebloc.getHomeCategory.stream,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) return Container();
@@ -197,7 +197,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           appCatData.length,
                           (index) => InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, "/category");
+                              Navigator.pushNamed(
+                                  context, "/category", arguments: {
+                                'id': snapshot.data!.data[index].super_app_id
+                              });
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

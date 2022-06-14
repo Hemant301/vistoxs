@@ -3,11 +3,18 @@ import 'package:vistox/Home/HomeScreen.dart';
 import 'package:vistox/Home/category.dart';
 import 'package:vistox/discription/productdiscription.dart';
 import 'package:vistox/nav/navigationbar.dart';
+import 'package:vistox/pincode/mannual.dart';
+import 'package:vistox/pincode/oops.dart';
+import 'package:vistox/pincode/pincode.dart';
 import 'package:vistox/profileitem/helpSupport.dart';
 import 'package:vistox/profileitem/notification.dart';
 import 'package:vistox/profileitem/setting.dart';
+import 'package:vistox/screen/faq.dart';
+import 'package:vistox/utils/storage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageUtil.getInstance();
   runApp(const MyApp());
 }
 
@@ -24,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             // fontFamily: font,
             ),
-        initialRoute: ('/navigationbar'),
+        initialRoute: ('/pincode/auto'),
         routes: {
           "/HomeScreen": (context) => HomeScreen(),
           "/navigationbar": (context) => NavBar(),
@@ -33,6 +40,10 @@ class MyApp extends StatelessWidget {
           "/setting": (context) => Settings(),
           "/notification": (context) => NotificationPage(),
           "/productdiscription": (context) => ProductDiscription(),
+          "/faq": (context) => Faq(),
+          '/pincode/auto': (context) => PincodePage(),
+          '/pincode/mannual': (context) => MannualPage(),
+          '/pincode/oops': (context) => OopsPage(),
         });
   }
 }

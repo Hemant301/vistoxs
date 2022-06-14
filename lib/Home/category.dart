@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vistox/Home/categoryslider.dart';
 import 'package:vistox/Home/homeslider.dart';
 import 'package:vistox/Modal/HomePageModal.dart';
+import 'package:vistox/Modal/homemodal.dart';
+import 'package:vistox/bloc/homebloc.dart';
 
 class Category extends StatefulWidget {
   const Category({Key? key}) : super(key: key);
@@ -15,6 +17,9 @@ class _CategoryState extends State<Category> {
   int activeTab = 0;
   @override
   Widget build(BuildContext context) {
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    print(rcvdData['id']);
+    homebloc.fetchSupercat(rcvdData['id']);
     switchWithInt() {
       switch (activeTab) {
         case 1:
@@ -117,59 +122,72 @@ class _CategoryState extends State<Category> {
                 children: [
                   Expanded(
                       flex: 1,
-                      child: GridView(
-                          padding: EdgeInsets.zero,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  // mainAxisSpacing: 5,
-                                  // crossAxisSpacing: 5,
-                                  childAspectRatio: 2.5 / 2.1),
-                          shrinkWrap: true,
-                          // crossAxisCount: 2,
-                          // crossAxisSpacing: 1,
-                          // mainAxisSpacing: 10,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: List.generate(
-                            appCatData.length,
-                            (index) => InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, "/productdiscription");
-                              },
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.width / 7,
-                                      width:
-                                          MediaQuery.of(context).size.width / 7,
+                      child: StreamBuilder<SupercatModal>(
+                          stream: homebloc.getSupercat.stream,
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) return Container();
+                            return GridView(
+                                padding: EdgeInsets.zero,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        // mainAxisSpacing: 5,
+                                        // crossAxisSpacing: 5,
+                                        childAspectRatio: 2.5 / 2.1),
+                                shrinkWrap: true,
+                                // crossAxisCount: 2,
+                                // crossAxisSpacing: 1,
+                                // mainAxisSpacing: 10,
+                                physics: NeverScrollableScrollPhysics(),
+                                children: List.generate(
+                                  appCatData.length,
+                                  (index) => InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/productdiscription");
+                                    },
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                7,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                7,
 
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/dummy/valeriia-bugaiova-_pPHgeHz1uk-unsplash 1.png"))),
-                                      //  child: Image.asset(
-                                      //     appCatData[index].image!,
-                                      //     height: 40,
-                                      //     width: 40,
-                                      //     // col orBlendMode: BlendMode.colorBurn,
-                                      //   ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Premium",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ]),
-                            ),
-                          ))),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: NetworkImage(snapshot
+                                                        .data!
+                                                        .data[index]
+                                                        .image!))),
+                                            //  child: Image.asset(
+                                            //     appCatData[index].image!,
+                                            //     height: 40,
+                                            //     width: 40,
+                                            //     // col orBlendMode: BlendMode.colorBurn,
+                                            //   ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            snapshot.data!.data[index].name!,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ]),
+                                  ),
+                                ));
+                          })),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(

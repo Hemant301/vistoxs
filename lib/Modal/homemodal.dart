@@ -15,9 +15,9 @@ class SliderimgModal {
   }
 }
 
-class SupercatModal {
+class SuperAppModal {
   List<SupercatdetailModal> data = [];
-  SupercatModal(js) {
+  SuperAppModal(js) {
     for (var i = 0; i < js.length; i++) {
       data.add(SupercatdetailModal(js[i]));
     }
@@ -31,6 +31,54 @@ class SupercatdetailModal {
 
   SupercatdetailModal(js) {
     super_app_id = js['super_app_id'] ?? "";
+    name = js['name'] ?? "";
+    image = js['image'] ?? "";
+  }
+}
+
+class HomeNearbyModal {
+  List<HomeNearbydetailModal> data = [];
+  HomeNearbyModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(HomeNearbydetailModal(js[i]));
+    }
+  }
+}
+
+class HomeNearbydetailModal {
+  String? id;
+  String? name;
+  String? image;
+  String? discount;
+  String? rating;
+  String? location;
+
+  HomeNearbydetailModal(js) {
+    id = js['id'] ?? "";
+    name = js['name'] ?? "";
+    image = js['image'] ?? "";
+    discount = js['discount'] ?? "";
+    rating = js['rating'] ?? "";
+    location = js['location'] ?? "";
+  }
+}
+
+class SupercatModal {
+  List<SupercategorydetailModal> data = [];
+  SupercatModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(SupercategorydetailModal(js[i]));
+    }
+  }
+}
+
+class SupercategorydetailModal {
+  String? id;
+  String? name;
+  String? image;
+
+  SupercategorydetailModal(js) {
+    id = js['super_id'] ?? "";
     name = js['name'] ?? "";
     image = js['image'] ?? "";
   }
