@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:vistox/Modal/homemodal.dart';
 
 class CategorySlider extends StatefulWidget {
   CategorySlider({
-    Key? key,
+    Key? key,required this.data
   }) : super(key: key);
-  // List<SliderimgModal>? data;
+   List<SliderimgModal> data;
+
   @override
   _CategorySliderState createState() => _CategorySliderState();
 }

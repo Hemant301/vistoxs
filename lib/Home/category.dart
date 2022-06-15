@@ -20,6 +20,13 @@ class _CategoryState extends State<Category> {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
     print(rcvdData['id']);
     homebloc.fetchSupercat(rcvdData['id']);
+    homebloc.fetchHomeSlider(rcvdData['id']);
+    homebloc.fetchClosetoyou(rcvdData['id']);
+    homebloc.fetchSection2(rcvdData['id']);
+    homebloc.fetchSection3(rcvdData['id']);
+    homebloc.fetchSection4(rcvdData['id']);
+    homebloc.fetchSupersubcat(rcvdData['id']);
+
     switchWithInt() {
       switch (activeTab) {
         case 1:
@@ -215,376 +222,441 @@ class _CategoryState extends State<Category> {
               SizedBox(
                 height: 20,
               ),
-              CategorySlider(),
+              StreamBuilder<SliderModal>(
+                  stream: homebloc.getHomeSlider.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+                    return CategorySlider(
+                      data: snapshot.data!.data,
+                    );
+                  }),
               // SizedBox(
               //   height: 10,
               // ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Close To You",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // letterSpacing: 1,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        clipBehavior: Clip.none,
-                                        children: [
-                                          Stack(
-                                            // clipBehavior: Clip.none,
-                                            children: [
-                                              Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    4,
+              StreamBuilder<ClosetoYouModal>(
+                  stream: homebloc.getClosetoyou.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            snapshot.data!.title!,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                // letterSpacing: 1,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              children: List.generate(
+                                  snapshot.data!.store.length,
+                                  (index) => Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Stack(
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                Stack(
+                                                  // clipBehavior: Clip.none,
+                                                  children: [
+                                                    Container(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              4,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                      .size
+                                                                      .width /
+                                                                  2 -
+                                                              30,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          image:
+                                                              DecorationImage(
+                                                                  image:
+                                                                      NetworkImage(
+                                                                    snapshot
+                                                                        .data!
+                                                                        .store[
+                                                                            index]
+                                                                        .storeimage!,
+                                                                  ),
+                                                                  fit: BoxFit
+                                                                      .fill)),
+                                                    ),
+                                                    Positioned(
+                                                      top: -30,
+                                                      child: Transform.rotate(
+                                                        angle: 19.7,
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.red,
+                                                              border: Border.all(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          238,
+                                                                          255,
+                                                                          200,
+                                                                          0))),
+                                                          height: 100,
+                                                          width: 35,
+                                                          child:
+                                                              Transform.rotate(
+                                                                  angle: 4.8,
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    child: Text(
+                                                                      "Save 30%",
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              7),
+                                                                    ),
+                                                                  )),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                        top: 10,
+                                                        right: 10,
+                                                        child: Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .green,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5)),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 15,
+                                                                ),
+                                                                Text(
+                                                                  "4.5",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ],
+                                                            ))),
+                                                  ],
+                                                ),
+                                                Positioned(
+                                                    bottom: -10,
+                                                    right: 0,
+                                                    left: 0,
+                                                    child: Center(
+                                                      child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: Colors
+                                                                    .black45
+                                                                    .withOpacity(
+                                                                        .2),
+                                                                spreadRadius: 2,
+                                                                blurRadius: 2,
+                                                                offset: Offset(
+                                                                    1,
+                                                                    2), // changes position of shadow
+                                                              )
+                                                            ],
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                          ),
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              3.5,
+                                                          padding:
+                                                              EdgeInsets.all(5),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text("Home "),
+                                                              Text(
+                                                                "Delivery",
+                                                                style: TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            156,
+                                                                            6,
+                                                                            232)),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                    ))
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Container(
                                                 width: MediaQuery.of(context)
                                                             .size
                                                             .width /
                                                         2 -
                                                     30,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                          "assets/dummy/1.png",
-                                                        ),
-                                                        fit: BoxFit.fill)),
-                                              ),
-                                              Positioned(
-                                                top: -30,
-                                                child: Transform.rotate(
-                                                  angle: 19.7,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.red,
-                                                        border: Border.all(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    238,
-                                                                    255,
-                                                                    200,
-                                                                    0))),
-                                                    height: 100,
-                                                    width: 35,
-                                                    child: Transform.rotate(
-                                                        angle: 4.8,
-                                                        child: Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Text(
-                                                            "Save 30%",
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 7),
-                                                          ),
-                                                        )),
+                                                child: Text(
+                                                  snapshot.data!.store[index]
+                                                      .storename!,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                )),
+                                            SizedBox(
+                                              height: 3,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3,
+                                                child: Text(
+                                                  snapshot.data!.store[index]
+                                                      .cityname!,
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
                                                   ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                  top: 10,
-                                                  right: 10,
-                                                  child: Container(
-                                                      padding:
-                                                          EdgeInsets.all(2),
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.green,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5)),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: Colors.white,
-                                                            size: 15,
-                                                          ),
-                                                          Text(
-                                                            "4.5",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ))),
-                                            ],
-                                          ),
-                                          Positioned(
-                                              bottom: -10,
-                                              right: 0,
-                                              left: 0,
-                                              child: Center(
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black45
-                                                              .withOpacity(.2),
-                                                          spreadRadius: 2,
-                                                          blurRadius: 2,
-                                                          offset: Offset(1,
-                                                              2), // changes position of shadow
-                                                        )
-                                                      ],
+                                                ))
+                                          ],
+                                        ),
+                                      ))),
+                        )
+                      ],
+                    );
+                  }),
+              StreamBuilder<ClosetoYouModal>(
+                  stream: homebloc.getSection2.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            snapshot.data!.title!,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                // letterSpacing: 1,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              children: List.generate(
+                                  snapshot.data!.store.length,
+                                  (index) => Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4,
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2 -
+                                                      30,
+                                                  decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              8),
-                                                    ),
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            3.5,
-                                                    padding: EdgeInsets.all(5),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text("Home "),
-                                                        Text(
-                                                          "Delivery",
-                                                          style: TextStyle(
+                                                              10),
+                                                      image: DecorationImage(
+                                                          image: NetworkImage(
+                                                            snapshot
+                                                                .data!
+                                                                .store[index]
+                                                                .storeimage!,
+                                                          ),
+                                                          fit: BoxFit.fill)),
+                                                ),
+                                                Positioned(
+                                                  top: -30,
+                                                  child: Transform.rotate(
+                                                    angle: 19.7,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.red,
+                                                          border: Border.all(
                                                               color: Color
                                                                   .fromARGB(
+                                                                      238,
                                                                       255,
-                                                                      156,
-                                                                      6,
-                                                                      232)),
-                                                        ),
-                                                      ],
-                                                    )),
-                                              ))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2 -
-                                              30,
-                                          child: Text(
-                                            "Nike Andheri Sports Superstore",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          )),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          child: Text(
-                                            "8km, Sector 32",
-                                            style: TextStyle(
-                                              color: Colors.grey,
+                                                                      200,
+                                                                      0))),
+                                                      height: 100,
+                                                      width: 35,
+                                                      child: Transform.rotate(
+                                                          angle: 4.8,
+                                                          child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Text(
+                                                              "Save 30%",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 7),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                    top: 10,
+                                                    right: 10,
+                                                    child: Container(
+                                                        padding:
+                                                            EdgeInsets.all(2),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.green,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 15,
+                                                            ),
+                                                            Text(
+                                                              "4.5",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
+                                                        )))
+                                              ],
                                             ),
-                                          ))
-                                    ],
-                                  ),
-                                ))),
-                  )
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Up To 70% Off On Nearby Saloons",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // letterSpacing: 1,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                4,
-                                            width: MediaQuery.of(context)
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    30,
+                                                child: Text(
+                                                  snapshot.data!.store[index]
+                                                      .storename!,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                )),
+                                            SizedBox(
+                                              height: 3,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context)
                                                         .size
                                                         .width /
-                                                    2 -
-                                                30,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                      "assets/dummy/70%dis.png",
-                                                    ),
-                                                    fit: BoxFit.fill)),
-                                          ),
-                                          Positioned(
-                                            top: -30,
-                                            child: Transform.rotate(
-                                              angle: 19.7,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    border: Border.all(
-                                                        color: Color.fromARGB(
-                                                            238, 255, 200, 0))),
-                                                height: 100,
-                                                width: 35,
-                                                child: Transform.rotate(
-                                                    angle: 4.8,
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        "Save 30%",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 7),
-                                                      ),
-                                                    )),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                              top: 10,
-                                              right: 10,
-                                              child: Container(
-                                                  padding: EdgeInsets.all(2),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.green,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5)),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      ),
-                                                      Text(
-                                                        "4.5",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ],
-                                                  )))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2 -
-                                              30,
-                                          child: Text(
-                                            "Nike Andheri Sports Superstore",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          )),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          child: Text(
-                                            "8km, Sector 32",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ))
-                                    ],
-                                  ),
-                                ))),
-                  )
-                ],
-              ),
+                                                    3,
+                                                child: Text(
+                                                  snapshot.data!.store[index]
+                                                      .cityname!,
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                      ))),
+                        )
+                      ],
+                    );
+                  }),
               // SizedBox(
               //   height: 20,
               // ),
@@ -773,110 +845,130 @@ class _CategoryState extends State<Category> {
               SizedBox(
                 height: 20,
               ),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Explore Discounts on",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // letterSpacing: 1,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(
-                            4,
-                            (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                            width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3 +
-                                                20,
-                                            height: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3 -
-                                                10,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      "assets/dummy/3.png"),
-                                                  fit: BoxFit.fill),
-                                            )),
-                                      ),
-                                      Positioned(
-                                          bottom: -8,
-                                          right: 0,
-                                          left: 0,
-                                          child: Center(
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black45
-                                                          .withOpacity(.2),
-                                                      spreadRadius: 2,
-                                                      blurRadius: 2,
-                                                      offset: Offset(1,
-                                                          2), // changes position of shadow
-                                                    )
-                                                  ],
-                                                  color: Color.fromARGB(
-                                                      255, 4, 42, 107),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3.5,
-                                                padding: EdgeInsets.all(5),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "Grocery Stores",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                )),
-                                          ))
-                                    ],
-                                  ),
-                                ],
-                              ),
+              StreamBuilder<ClosetoYouModal>(
+                  stream: homebloc.getSection3.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              snapshot.data!.title!,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  // letterSpacing: 1,
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 18),
                             ),
                           ),
-                        ))
-                  ]),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: List.generate(
+                                  snapshot.data!.store.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          3 +
+                                                      20,
+                                                  height: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          3 -
+                                                      10,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            snapshot
+                                                                .data!
+                                                                .store[index]
+                                                                .storeimage!),
+                                                        fit: BoxFit.fill),
+                                                  )),
+                                            ),
+                                            Positioned(
+                                                bottom: -8,
+                                                right: 0,
+                                                left: 0,
+                                                child: Center(
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors
+                                                                .black45
+                                                                .withOpacity(
+                                                                    .2),
+                                                            spreadRadius: 2,
+                                                            blurRadius: 2,
+                                                            offset: Offset(1,
+                                                                2), // changes position of shadow
+                                                          )
+                                                        ],
+                                                        color: Color.fromARGB(
+                                                            255, 4, 42, 107),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              3.5,
+                                                      padding:
+                                                          EdgeInsets.all(5),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "Grocery Stores",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ],
+                                                      )),
+                                                ))
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ))
+                        ]);
+                  }),
 
               // Column(
               //     mainAxisAlignment: MainAxisAlignment.start,
@@ -1036,158 +1128,182 @@ class _CategoryState extends State<Category> {
               SizedBox(
                 height: 20,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Up To 40% Off On Nearby Saloons",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // letterSpacing: 1,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                        children: List.generate(
-                            5,
-                            (index) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                4,
-                                            width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2 -
-                                                30,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                      "assets/dummy/40%dis.png",
-                                                    ),
-                                                    fit: BoxFit.fill)),
-                                          ),
-                                          Positioned(
-                                            top: -30,
-                                            child: Transform.rotate(
-                                              angle: 19.7,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    border: Border.all(
-                                                        color: Color.fromARGB(
-                                                            238, 255, 200, 0))),
-                                                height: 100,
-                                                width: 35,
-                                                child: Transform.rotate(
-                                                    angle: 4.8,
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        "Save 30%",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 7),
-                                                      ),
-                                                    )),
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                              top: 10,
-                                              right: 10,
-                                              child: Container(
-                                                  padding: EdgeInsets.all(2),
+              StreamBuilder<ClosetoYouModal>(
+                  stream: homebloc.getSection4.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            snapshot.data!.title!,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                // letterSpacing: 1,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              children: List.generate(
+                                  snapshot.data!.store.length,
+                                  (index) => Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4,
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2 -
+                                                      30,
                                                   decoration: BoxDecoration(
-                                                      color: Colors.green,
+                                                      color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5)),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      ),
-                                                      Text(
-                                                        "4.5",
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ],
-                                                  )))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  2 -
-                                              30,
-                                          child: Text(
-                                            "Nike Andheri Sports Superstore",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          )),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          child: Text(
-                                            "8km, Sector 32",
-                                            style: TextStyle(
-                                              color: Colors.grey,
+                                                              10),
+                                                      image: DecorationImage(
+                                                          image: NetworkImage(
+                                                            snapshot
+                                                                .data!
+                                                                .store[index]
+                                                                .storeimage!,
+                                                          ),
+                                                          fit: BoxFit.fill)),
+                                                ),
+                                                Positioned(
+                                                  top: -30,
+                                                  child: Transform.rotate(
+                                                    angle: 19.7,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.red,
+                                                          border: Border.all(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      238,
+                                                                      255,
+                                                                      200,
+                                                                      0))),
+                                                      height: 100,
+                                                      width: 35,
+                                                      child: Transform.rotate(
+                                                          angle: 4.8,
+                                                          child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Text(
+                                                              "Save 30%",
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 7),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                    top: 10,
+                                                    right: 10,
+                                                    child: Container(
+                                                        padding:
+                                                            EdgeInsets.all(2),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.green,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.star,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 15,
+                                                            ),
+                                                            Text(
+                                                              "4.5",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
+                                                        )))
+                                              ],
                                             ),
-                                          ))
-                                    ],
-                                  ),
-                                ))),
-                  )
-                ],
-              ),
+                                            SizedBox(
+                                              height: 8,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        2 -
+                                                    30,
+                                                child: Text(
+                                                  snapshot.data!.store[index]
+                                                      .storename!,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                )),
+                                            SizedBox(
+                                              height: 3,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3,
+                                                child: Text(
+                                                  snapshot.data!.store[index]
+                                                      .cityname!,
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                      ))),
+                        )
+                      ],
+                    );
+                  }),
               SizedBox(
                 height: 50,
               ),

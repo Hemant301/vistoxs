@@ -9,12 +9,98 @@ class HomeBloc {
 
   BehaviorSubject<SliderModal> get getHomeSlider => _liveSlider;
 
-  fetchHomeSlider() async {
+  fetchHomeSlider(id) async {
     try {
-      SliderModal homeSlider = await _homeRepo.fetchHomeSlider();
+      _liveSlider.addError('error');
+      SliderModal homeSlider = await _homeRepo.fetchHomeSlider(id);
       // print(homeSlider.imgs!.length);
 
       _liveSlider.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<ClosetoYouModal> _liveClosetoyou =
+      BehaviorSubject<ClosetoYouModal>();
+
+  BehaviorSubject<ClosetoYouModal> get getClosetoyou => _liveClosetoyou;
+
+  fetchClosetoyou(id) async {
+    try {
+      _liveClosetoyou.addError('error');
+      ClosetoYouModal homeSlider = await _homeRepo.fetchClosetoyou(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveClosetoyou.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<ClosetoYouModal> _liveSection2 =
+      BehaviorSubject<ClosetoYouModal>();
+
+  BehaviorSubject<ClosetoYouModal> get getSection2 => _liveSection2;
+
+  fetchSection2(id) async {
+    try {
+      _liveSection2.addError('error');
+      ClosetoYouModal homeSlider = await _homeRepo.fetchSection2(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSection2.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<ClosetoYouModal> _liveSection3 =
+      BehaviorSubject<ClosetoYouModal>();
+
+  BehaviorSubject<ClosetoYouModal> get getSection3 => _liveSection3;
+
+  fetchSection3(id) async {
+    try {
+      _liveSection3.addError('error');
+      ClosetoYouModal homeSlider = await _homeRepo.fetchSection3(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSection3.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<ClosetoYouModal> _liveSection4 =
+      BehaviorSubject<ClosetoYouModal>();
+
+  BehaviorSubject<ClosetoYouModal> get getSection4 => _liveSection4;
+
+  fetchSection4(id) async {
+    try {
+      _liveSection4.addError('error');
+      ClosetoYouModal homeSlider = await _homeRepo.fetchSection4(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSection4.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<ClosetoYouModal> _liveSupersubcat =
+      BehaviorSubject<ClosetoYouModal>();
+
+  BehaviorSubject<ClosetoYouModal> get getSupersubcat => _liveSupersubcat;
+
+  fetchSupersubcat(id) async {
+    try {
+      _liveSupersubcat.addError('error');
+      ClosetoYouModal homeSlider = await _homeRepo.fetchSupersubcat(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveSupersubcat.add(homeSlider);
     } catch (e) {
       print(e);
     }

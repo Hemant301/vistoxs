@@ -83,3 +83,25 @@ class SupercategorydetailModal {
     image = js['image'] ?? "";
   }
 }
+
+class ClosetoYouModal {
+  String? title;
+  List<CloseStoreListModal> store = [];
+  ClosetoYouModal(js) {
+    title = js['title'] ?? "";
+    for (var i = 0; i < js['store'].length; i++) {
+      store.add(CloseStoreListModal(js['store'][i]));
+    }
+  }
+}
+
+class CloseStoreListModal {
+  String? storename;
+  String? storeimage;
+  String? cityname;
+  CloseStoreListModal(js) {
+    storename = js['store_name'] ?? "";
+    storeimage = js['store_image'] ?? "";
+    cityname = js['city_name'] ?? "";
+  }
+}
