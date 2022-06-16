@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/thecybertize/Documents/FlutterApp/vistoxs/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml",
+            "outputFile": "/Users/thecybertizehemant/Documents/flutterproject/dummy/Untitled/vistoxs/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml",
             "map": [
                 {
-                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/4ef803ba34d31dcf48df123a27eb5d76/transformed/jetified-play-services-basement-17.0.0/res/values-fr-rCA/values.xml",
+                    "source": "/Users/thecybertizehemant/.gradle/caches/transforms-3/4ef803ba34d31dcf48df123a27eb5d76/transformed/jetified-play-services-basement-17.0.0/res/values-fr-rCA/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-fr-rCA/values-fr-rCA.xml",
+                    "source": "/Users/thecybertizehemant/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-fr-rCA/values-fr-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/1ea967b797818d9badf6aaa0240ca184/transformed/jetified-play-services-base-17.0.0/res/values-fr-rCA/values.xml",
+                    "source": "/Users/thecybertizehemant/.gradle/caches/transforms-3/1ea967b797818d9badf6aaa0240ca184/transformed/jetified-play-services-base-17.0.0/res/values-fr-rCA/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

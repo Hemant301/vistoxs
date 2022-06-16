@@ -4,6 +4,8 @@ import 'package:vistox/Home/homeslider.dart';
 import 'package:vistox/Modal/HomePageModal.dart';
 import 'package:vistox/Modal/homemodal.dart';
 import 'package:vistox/bloc/homebloc.dart';
+import 'package:vistox/bloc/productdiscriptionbloc.dart';
+import 'package:vistox/discription/productdiscription.dart';
 
 class Category extends StatefulWidget {
   const Category({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category> {
   bool isactive = false;
   int activeTab = 0;
+ 
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -26,7 +29,7 @@ class _CategoryState extends State<Category> {
     homebloc.fetchSection3(rcvdData['id']);
     homebloc.fetchSection4(rcvdData['id']);
     homebloc.fetchSupersubcat(rcvdData['id']);
-
+    
     switchWithInt() {
       switch (activeTab) {
         case 1:
