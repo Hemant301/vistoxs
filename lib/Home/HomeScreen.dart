@@ -60,12 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 241, 241, 241),
-      appBar: new PreferredSize(
+      appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
               boxShadow: [
@@ -89,7 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       // crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Image.asset("assets/logo.png"),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/addaccount");
+                            },
+                            child: Image.asset("assets/logo.png")),
                         Container(
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
@@ -98,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             border: Border.all(
                                 color: Color.fromARGB(255, 202, 195, 195)),
                           ),
-                          child: Row(children: [
+                          child: Row(children: const [
                             Text("Andheri East"),
                             Icon(Icons.arrow_drop_down)
                           ]),
@@ -109,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: BoxDecoration(
                               color: Colors.amber,
                               borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 begin: Alignment.topRight,
                                 end: Alignment.bottomLeft,
                                 stops: [
