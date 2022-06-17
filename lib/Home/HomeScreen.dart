@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    homebloc.fetchHomeSlider();
+    homebloc.fetchHomeSlider('0');
     homebloc.fetchHomeCategory();
     scrollController.addListener(() {
       if (scrollController.position.pixels > scrollPixel) {
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              StreamBuilder<SupercatModal>(
+              StreamBuilder<SuperAppModal>(
                   stream: homebloc.getHomeCategory.stream,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) return Container();
@@ -201,7 +201,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           appCatData.length,
                           (index) => InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, "/category");
+                              Navigator.pushNamed(
+                                  context, "/category", arguments: {
+                                'id': snapshot.data!.data[index].super_app_id
+                              });
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -250,7 +253,14 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              MyCorosule(),
+              StreamBuilder<SliderModal>(
+                  stream: homebloc.getHomeSlider.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+                    return MyCorosule(data: snapshot.data!.data);
+                  }),
               // SizedBox(
               //   height: 10,
               // ),
@@ -586,7 +596,14 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 30,
               ),
-              MyCorosule(),
+              StreamBuilder<SliderModal>(
+                  stream: homebloc.getHomeSlider.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+                    return MyCorosule(data: snapshot.data!.data);
+                  }),
               // SizedBox(
               //   height: 10,
               // ),
