@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController scrollController = ScrollController();
+  int? activeIndexfoCategory;
   bool showFilter = false;
   bool isactive = false;
   int activeTab = 0;
@@ -41,22 +42,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    switchWithInt() {
-      switch (activeTab) {
-        case 1:
-          return Food();
-        case 2:
-          return Fitness();
-        // case 3:
-        //   return Wishlist();
-        // case 4:
-        //   return MyBeg();
-        case 0:
+    // switchWithInt() {
+    //   switch (activeTab) {
+    //     case 1:
+    //       return Food();
+    //     case 2:
+    //       return Fitness();
+    //     // case 3:
+    //     //   return Wishlist();
+    //     // case 4:
+    //     //   return MyBeg();
+    //     case 0:
 
-        default:
-          return All();
-      }
-    }
+    //     default:
+    //       return All();
+    //   }
+    // }
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 241, 241, 241),
@@ -89,11 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       // crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, "/addaccount");
-                            },
-                            child: Image.asset("assets/logo.png")),
+                        InkWell(child: Image.asset("assets/logo.png")),
                         Container(
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
@@ -162,7 +159,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: MediaQuery.of(context).size.width * 0.82,
                         child: Text(
                           "Tap here to search for stores ,product,brands,etc",
-                          style: TextStyle(color: Colors.grey[400]),
+                          style:
+                              TextStyle(color: Colors.grey[400], fontSize: 10),
                         ),
                       )
                     ]),
@@ -268,17 +266,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Explore Nerby Brand",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // letterSpacing: 1,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Explore Nerby Brand",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              color: Colors.black,
+                              // letterSpacing: 1,
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
+                          )),
+                    ],
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -400,16 +409,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 3,
                                       ),
                                       Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          child: Text(
-                                            "8km, Sector 32",
-                                            style: TextStyle(
-                                              color: Colors.grey,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3,
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.pin_drop,
+                                              color: Colors.black,
+                                              size: 15,
                                             ),
-                                          ))
+                                            RichText(
+                                              text: TextSpan(
+                                                text: '8km',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: const <TextSpan>[
+                                                  TextSpan(
+                                                      text: ' sector 3',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.black54)),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ))),
@@ -423,17 +451,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Trending Sports Near Your Hood",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // letterSpacing: 1,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Trending Sports Near Your Hood",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                // letterSpacing: 1,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            )),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
@@ -493,17 +532,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Explore Discounts on",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // letterSpacing: 1,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Explore Discounts on",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                // letterSpacing: 1,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            )),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
@@ -878,17 +928,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Up To 70% Off On Nearby Saloons",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // letterSpacing: 1,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Up To 70% Off On Nearby Saloons",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              color: Colors.black,
+                              // letterSpacing: 1,
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
+                          )),
+                    ],
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -1010,16 +1071,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 3,
                                       ),
                                       Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          child: Text(
-                                            "8km, Sector 32",
-                                            style: TextStyle(
-                                              color: Colors.grey,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3,
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.pin_drop,
+                                              color: Colors.black,
+                                              size: 15,
                                             ),
-                                          ))
+                                            RichText(
+                                              text: TextSpan(
+                                                text: '8km',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: const <TextSpan>[
+                                                  TextSpan(
+                                                      text: ' sector 3',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.black54)),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ))),
@@ -1034,17 +1114,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Up To 40% Off On Nearby Saloons",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // letterSpacing: 1,
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Up To 40% Off On Nearby Saloons",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              color: Colors.black,
+                              // letterSpacing: 1,
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
+                          )),
+                    ],
                   ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -1166,16 +1257,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 3,
                                       ),
                                       Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
-                                          child: Text(
-                                            "8km, Sector 32",
-                                            style: TextStyle(
-                                              color: Colors.grey,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3,
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.pin_drop,
+                                              color: Colors.black,
+                                              size: 15,
                                             ),
-                                          ))
+                                            RichText(
+                                              text: TextSpan(
+                                                text: '8km',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                children: const <TextSpan>[
+                                                  TextSpan(
+                                                      text: ' sector 3',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.black54)),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ))),
@@ -1185,21 +1295,275 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 50,
               ),
+              // SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Row(children: [
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 0;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 0
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "All",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 0
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           )),
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 1;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 1
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "Food",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 1
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           )),
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 2;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 2
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "Fitness",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 2
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           )),
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 3;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 3
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "Gym",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 3
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           )),
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 4;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 4
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "Beauty",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 4
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           )),
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 5;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 5
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "Hotal",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 5
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           )),
+              //       Padding(
+              //           padding: const EdgeInsets.all(15.0),
+              //           child: InkWell(
+              //             onTap: () {
+              //               setState(() {
+              //                 activeTab = 6;
+              //               });
+              //             },
+              //             child: Container(
+              //               padding: const EdgeInsets.all(15.0),
+              //               decoration: BoxDecoration(
+              //                 color: activeTab == 6
+              //                     ? Color.fromARGB(255, 18, 94, 226)
+              //                     : Colors.white,
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                     color: Colors.black45.withOpacity(.1),
+              //                     spreadRadius: 2,
+              //                     blurRadius: 2,
+              //                     offset: Offset(
+              //                         1, 2), // changes position of shadow
+              //                   )
+              //                 ],
+              //                 borderRadius: BorderRadius.circular(10),
+              //               ),
+              //               child: Text(
+              //                 "Events",
+              //                 style: TextStyle(
+              //                     fontWeight: FontWeight.bold,
+              //                     color: activeTab == 6
+              //                         ? Colors.white
+              //                         : Colors.black),
+              //               ),
+              //             ),
+              //           ))
+              //     ])
+
+              //     //
+              //     ),
               SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(children: [
-                    Padding(
+                  child: Row(
+                      children: List.generate(
+                    5,
+                    (index) => Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: InkWell(
                           onTap: () {
                             setState(() {
-                              activeTab = 0;
+                              activeIndexfoCategory = index;
                             });
                           },
                           child: Container(
                             padding: const EdgeInsets.all(15.0),
                             decoration: BoxDecoration(
-                              color: activeTab == 0
+                              color: activeIndexfoCategory == index
                                   ? Color.fromARGB(255, 18, 94, 226)
                                   : Colors.white,
                               boxShadow: [
@@ -1217,233 +1581,186 @@ class _HomeScreenState extends State<HomeScreen> {
                               "All",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: activeTab == 0
+                                  color: activeIndexfoCategory == index
                                       ? Colors.white
                                       : Colors.black),
                             ),
                           ),
                         )),
-                    Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeTab = 1;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeTab == 1
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Food",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeTab == 1
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
+                  ))),
+              Column(
+                children: List.generate(
+                    5,
+                    (index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.width / 3 -
+                                            10,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2 -
+                                            30,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                              "assets/dummy/macdonal.png",
+                                            ),
+                                            fit: BoxFit.fill)),
+                                  ),
+                                  Positioned(
+                                    top: -30,
+                                    child: Transform.rotate(
+                                      angle: 19.7,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            border: Border.all(
+                                                color: Color.fromARGB(
+                                                    238, 255, 200, 0))),
+                                        height: 100,
+                                        width: 35,
+                                        child: Transform.rotate(
+                                            angle: 4.8,
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Save 30%",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 7),
+                                              ),
+                                            )),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: Container(
+                                          padding: EdgeInsets.all(2),
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.white,
+                                                size: 15,
+                                              ),
+                                              Text(
+                                                "4.5",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          )))
+                                ],
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      width: MediaQuery.of(context).size.width /
+                                              2 -
+                                          30,
+                                      child: Text(
+                                        "Nike Andheri Sports Superstore",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      )),
+                                  SizedBox(
+                                    height: 3,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.pin_drop,
+                                          color: Colors.black,
+                                          size: 15,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            text: '8km',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                            children: const <TextSpan>[
+                                              TextSpan(
+                                                  text: ' sector 3',
+                                                  style: TextStyle(
+                                                      color: Colors.black54)),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 2,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    color: Colors.grey,
+                                  ),
+                                  Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 3),
+                                      width: MediaQuery.of(context).size.width /
+                                          2.5,
+                                      child: Text(
+                                        "Quick Bites, 400 for two",
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 12),
+                                      )),
+                                  Container(
+                                      // padding: EdgeInsets.symmetric(vertical: 3),
+                                      width: MediaQuery.of(context).size.width /
+                                          2.5,
+                                      child: Text(
+                                        "2504 bought, last redeemed yesterday",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      )),
+                                ],
+                              )
+                            ],
                           ),
                         )),
-                    Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeTab = 2;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeTab == 2
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Fitness",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeTab == 2
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeTab = 3;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeTab == 3
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Gym",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeTab == 3
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeTab = 4;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeTab == 4
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Beauty",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeTab == 4
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeTab = 5;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeTab == 5
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Hotal",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeTab == 5
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeTab = 6;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeTab == 6
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Events",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeTab == 6
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        ))
-                  ])
-
-                  //
-                  ),
-
-              switchWithInt()
+              )
             ]),
       ),
       floatingActionButton: showFilter == true
           ? Container(
               padding: EdgeInsets.all(20),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
               color: Colors.red,
               child: Icon(Icons.abc))
           : Container(),
@@ -1451,154 +1768,162 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class All extends StatelessWidget {
-  const All({Key? key}) : super(key: key);
+// class All extends StatelessWidget {
+//   const All({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(
-          5,
-          (index) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.width / 3 - 10,
-                          width: MediaQuery.of(context).size.width / 2 - 30,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                    "assets/dummy/macdonal.png",
-                                  ),
-                                  fit: BoxFit.fill)),
-                        ),
-                        Positioned(
-                          top: -30,
-                          child: Transform.rotate(
-                            angle: 19.7,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  border: Border.all(
-                                      color: Color.fromARGB(238, 255, 200, 0))),
-                              height: 100,
-                              width: 35,
-                              child: Transform.rotate(
-                                  angle: 4.8,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Save 30%",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 7),
-                                    ),
-                                  )),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                            top: 10,
-                            right: 10,
-                            child: Container(
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                    Text(
-                                      "4.5",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                )))
-                      ],
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            width: MediaQuery.of(context).size.width / 2 - 30,
-                            child: Text(
-                              "Nike Andheri Sports Superstore",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            )),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.pin_drop,
-                              color: Colors.grey,
-                              size: 15,
-                            ),
-                            Container(
-                                padding: EdgeInsets.symmetric(vertical: 3),
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                child: Text(
-                                  "8km, Sector 32",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                )),
-                          ],
-                        ),
-                        Container(
-                          height: 2,
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          color: Colors.grey,
-                        ),
-                        Container(
-                            padding: EdgeInsets.symmetric(vertical: 3),
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            child: Text(
-                              "Quick Bites, 400 for two",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 12),
-                            )),
-                        Container(
-                            // padding: EdgeInsets.symmetric(vertical: 3),
-                            width: MediaQuery.of(context).size.width / 2.5,
-                            child: Text(
-                              "2504 bought, last redeemed yesterday",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            )),
-                      ],
-                    )
-                  ],
-                ),
-              )),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: List.generate(
+//           5,
+//           (index) => Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Stack(
+//                       children: [
+//                         Container(
+//                           height: MediaQuery.of(context).size.width / 3 - 10,
+//                           width: MediaQuery.of(context).size.width / 2 - 30,
+//                           decoration: BoxDecoration(
+//                               color: Colors.white,
+//                               borderRadius: BorderRadius.circular(10),
+//                               image: DecorationImage(
+//                                   image: AssetImage(
+//                                     "assets/dummy/macdonal.png",
+//                                   ),
+//                                   fit: BoxFit.fill)),
+//                         ),
+//                         Positioned(
+//                           top: -30,
+//                           child: Transform.rotate(
+//                             angle: 19.7,
+//                             child: Container(
+//                               decoration: BoxDecoration(
+//                                   color: Colors.red,
+//                                   border: Border.all(
+//                                       color: Color.fromARGB(238, 255, 200, 0))),
+//                               height: 100,
+//                               width: 35,
+//                               child: Transform.rotate(
+//                                   angle: 4.8,
+//                                   child: Align(
+//                                     alignment: Alignment.center,
+//                                     child: Text(
+//                                       "Save 30%",
+//                                       textAlign: TextAlign.center,
+//                                       style: TextStyle(
+//                                           color: Colors.white,
+//                                           fontWeight: FontWeight.bold,
+//                                           fontSize: 7),
+//                                     ),
+//                                   )),
+//                             ),
+//                           ),
+//                         ),
+//                         Positioned(
+//                             top: 10,
+//                             right: 10,
+//                             child: Container(
+//                                 padding: EdgeInsets.all(2),
+//                                 decoration: BoxDecoration(
+//                                     color: Colors.green,
+//                                     borderRadius: BorderRadius.circular(5)),
+//                                 child: Row(
+//                                   mainAxisAlignment: MainAxisAlignment.center,
+//                                   crossAxisAlignment: CrossAxisAlignment.center,
+//                                   children: [
+//                                     Icon(
+//                                       Icons.star,
+//                                       color: Colors.white,
+//                                       size: 15,
+//                                     ),
+//                                     Text(
+//                                       "4.5",
+//                                       style: TextStyle(
+//                                           color: Colors.white,
+//                                           fontSize: 12,
+//                                           fontWeight: FontWeight.bold),
+//                                     ),
+//                                   ],
+//                                 )))
+//                       ],
+//                     ),
+//                     SizedBox(
+//                       width: 8,
+//                     ),
+//                     Column(
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Container(
+//                             width: MediaQuery.of(context).size.width / 2 - 30,
+//                             child: Text(
+//                               "Nike Andheri Sports Superstore",
+//                               style: TextStyle(
+//                                   fontWeight: FontWeight.bold, fontSize: 15),
+//                             )),
+//                         SizedBox(
+//                           height: 3,
+//                         ),
+//                         Container(
+//                           width: MediaQuery.of(context).size.width / 3,
+//                           child: Row(
+//                             children: [
+//                               Icon(
+//                                 Icons.pin_drop,
+//                                 color: Colors.black,
+//                                 size: 15,
+//                               ),
+//                               RichText(
+//                                 text: TextSpan(
+//                                   text: '8km',
+//                                   style: TextStyle(
+//                                       color: Colors.black,
+//                                       fontWeight: FontWeight.bold),
+//                                   children: const <TextSpan>[
+//                                     TextSpan(
+//                                         text: ' sector 3',
+//                                         style:
+//                                             TextStyle(color: Colors.black54)),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                         Container(
+//                           height: 2,
+//                           width: MediaQuery.of(context).size.width / 2.5,
+//                           color: Colors.grey,
+//                         ),
+//                         Container(
+//                             padding: EdgeInsets.symmetric(vertical: 3),
+//                             width: MediaQuery.of(context).size.width / 2.5,
+//                             child: Text(
+//                               "Quick Bites, 400 for two",
+//                               style:
+//                                   TextStyle(color: Colors.grey, fontSize: 12),
+//                             )),
+//                         Container(
+//                             // padding: EdgeInsets.symmetric(vertical: 3),
+//                             width: MediaQuery.of(context).size.width / 2.5,
+//                             child: Text(
+//                               "2504 bought, last redeemed yesterday",
+//                               style: TextStyle(
+//                                 color: Colors.grey,
+//                               ),
+//                             )),
+//                       ],
+//                     )
+//                   ],
+//                 ),
+//               )),
+//     );
+//   }
+// }
 
 class Food extends StatelessWidget {
   const Food({Key? key}) : super(key: key);

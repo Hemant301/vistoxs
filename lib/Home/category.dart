@@ -17,7 +17,7 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category> {
   bool isactive = false;
   int activeTab = 0;
- 
+
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
@@ -29,7 +29,7 @@ class _CategoryState extends State<Category> {
     homebloc.fetchSection3(rcvdData['id']);
     homebloc.fetchSection4(rcvdData['id']);
     homebloc.fetchSupersubcat(rcvdData['id']);
-    
+
     switchWithInt() {
       switch (activeTab) {
         case 1:
@@ -78,7 +78,7 @@ class _CategoryState extends State<Category> {
                       // crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Image.asset("assets/logo.png"),
+                        InkWell(child: Image.asset("assets/logo.png")),
                         Container(
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
@@ -87,12 +87,49 @@ class _CategoryState extends State<Category> {
                             border: Border.all(
                                 color: Color.fromARGB(255, 202, 195, 195)),
                           ),
-                          child: Row(children: [
+                          child: Row(children: const [
                             Text("Andheri East"),
                             Icon(Icons.arrow_drop_down)
                           ]),
                         ),
-                        Text("Satisfy Your Tastebuds"),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                stops: [
+                                  0.1,
+                                  0.4,
+                                  0.6,
+                                  0.9,
+                                ],
+                                colors: [
+                                  Colors.yellow,
+                                  Color.fromARGB(255, 234, 189, 84),
+                                  Color.fromARGB(255, 216, 170, 18),
+                                  Color.fromARGB(255, 255, 183, 0),
+                                ],
+                              )
+                              // border: Border.all(color: Color.fromARGB(255, 202, 195, 195)
+                              // ),
+                              ),
+                          // width: MediaQuery.of(context).size.width / 5,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset("assets/wallet 1.png"),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text("100"),
+                              ]),
+                        ),
+                        // Icon(Icons.search),
+                        Icon(Icons.notification_add)
                       ]),
                   Container(
                     // color: Colors.grey,
@@ -110,7 +147,8 @@ class _CategoryState extends State<Category> {
                         width: MediaQuery.of(context).size.width * 0.82,
                         child: Text(
                           "Tap here to search for stores ,product,brands,etc",
-                          style: TextStyle(color: Colors.grey[400]),
+                          style:
+                              TextStyle(color: Colors.grey[400], fontSize: 10),
                         ),
                       )
                     ]),
@@ -192,6 +230,7 @@ class _CategoryState extends State<Category> {
                                           Text(
                                             snapshot.data!.data[index].name!,
                                             style: TextStyle(
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.bold),
                                           )
                                         ]),
@@ -246,17 +285,28 @@ class _CategoryState extends State<Category> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            snapshot.data!.title!,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.black,
-                                // letterSpacing: 1,
-                                // fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                snapshot.data!.title!,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    // letterSpacing: 1,
+                                    // fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 15,
+                                )),
+                          ],
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -466,17 +516,37 @@ class _CategoryState extends State<Category> {
                                               height: 3,
                                             ),
                                             Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3,
-                                                child: Text(
-                                                  snapshot.data!.store[index]
-                                                      .cityname!,
-                                                  style: TextStyle(
-                                                    color: Colors.grey,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.pin_drop,
+                                                    color: Colors.black,
+                                                    size: 15,
                                                   ),
-                                                ))
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      text: '8km',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                            text:
+                                                                " ${snapshot.data!.store[index].cityname!}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black54)),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ))),
@@ -492,17 +562,28 @@ class _CategoryState extends State<Category> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            snapshot.data!.title!,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.black,
-                                // letterSpacing: 1,
-                                // fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                snapshot.data!.title!,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    // letterSpacing: 1,
+                                    // fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 15,
+                                )),
+                          ],
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -642,17 +723,37 @@ class _CategoryState extends State<Category> {
                                               height: 3,
                                             ),
                                             Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3,
-                                                child: Text(
-                                                  snapshot.data!.store[index]
-                                                      .cityname!,
-                                                  style: TextStyle(
-                                                    color: Colors.grey,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.pin_drop,
+                                                    color: Colors.black,
+                                                    size: 15,
                                                   ),
-                                                ))
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      text: '8km',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                            text:
+                                                                " ${snapshot.data!.store[index].cityname!}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black54)),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ))),
@@ -737,17 +838,28 @@ class _CategoryState extends State<Category> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Popular Cuisines",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // letterSpacing: 1,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Popular Cuisines",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                // letterSpacing: 1,
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            )),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
@@ -856,17 +968,28 @@ class _CategoryState extends State<Category> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              snapshot.data!.title!,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  // letterSpacing: 1,
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  snapshot.data!.title!,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      // letterSpacing: 1,
+                                      // fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 15,
+                                  )),
+                            ],
                           ),
                           SizedBox(
                             height: 15,
@@ -1139,17 +1262,28 @@ class _CategoryState extends State<Category> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            snapshot.data!.title!,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.black,
-                                // letterSpacing: 1,
-                                // fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                snapshot.data!.title!,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    // letterSpacing: 1,
+                                    // fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 15,
+                                )),
+                          ],
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -1289,17 +1423,37 @@ class _CategoryState extends State<Category> {
                                               height: 3,
                                             ),
                                             Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3,
-                                                child: Text(
-                                                  snapshot.data!.store[index]
-                                                      .cityname!,
-                                                  style: TextStyle(
-                                                    color: Colors.grey,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.pin_drop,
+                                                    color: Colors.black,
+                                                    size: 15,
                                                   ),
-                                                ))
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      text: '8km',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                            text:
+                                                                " ${snapshot.data!.store[index].cityname!}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black54)),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ))),
@@ -1670,23 +1824,31 @@ class All extends StatelessWidget {
                         SizedBox(
                           height: 3,
                         ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.pin_drop,
-                              color: Colors.grey,
-                              size: 15,
-                            ),
-                            Container(
-                                padding: EdgeInsets.symmetric(vertical: 3),
-                                width: MediaQuery.of(context).size.width / 2.5,
-                                child: Text(
-                                  "8km, Sector 32",
+                        Container(
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.pin_drop,
+                                color: Colors.black,
+                                size: 15,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: '8km',
                                   style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                )),
-                          ],
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                  children: const <TextSpan>[
+                                    TextSpan(
+                                        text: ' sector 3',
+                                        style:
+                                            TextStyle(color: Colors.black54)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Container(
                           height: 2,
