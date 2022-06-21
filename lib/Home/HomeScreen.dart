@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 5,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.82,
+                        width: MediaQuery.of(context).size.width - 80,
                         child: Text(
                           "Tap here to search for stores ,product,brands,etc",
                           style:
@@ -628,6 +628,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Text(
                                                       "Grocery Stores",
                                                       style: TextStyle(
+                                                          fontSize: 10,
                                                           color: Colors.white,
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -1759,9 +1760,8 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: showFilter == true
           ? Container(
               padding: EdgeInsets.all(20),
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              color: Colors.red,
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
               child: Icon(Icons.abc))
           : Container(),
     );

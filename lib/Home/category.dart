@@ -144,7 +144,7 @@ class _CategoryState extends State<Category> {
                         width: 5,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.82,
+                        width: MediaQuery.of(context).size.width - 80,
                         child: Text(
                           "Tap here to search for stores ,product,brands,etc",
                           style:
@@ -192,7 +192,9 @@ class _CategoryState extends State<Category> {
                                   (index) => InkWell(
                                     onTap: () {
                                       Navigator.pushNamed(
-                                          context, "/productdiscription");
+                                          arguments: {'super_id': rcvdData['id']},
+                                          context,
+                                          "/productdiscription");
                                     },
                                     child: Column(
                                         crossAxisAlignment:
@@ -479,10 +481,17 @@ class _CategoryState extends State<Category> {
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Text("Home "),
+                                                              Text(
+                                                                "Home ",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10),
+                                                              ),
                                                               Text(
                                                                 "Delivery",
                                                                 style: TextStyle(
+                                                                    fontSize:
+                                                                        10,
                                                                     color: Color
                                                                         .fromARGB(
                                                                             255,
@@ -1077,6 +1086,7 @@ class _CategoryState extends State<Category> {
                                                           Text(
                                                             "Grocery Stores",
                                                             style: TextStyle(
+                                                                fontSize: 10,
                                                                 color: Colors
                                                                     .white,
                                                                 fontWeight:

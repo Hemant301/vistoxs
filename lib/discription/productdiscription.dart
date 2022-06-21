@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vistox/Modal/HomePageModal.dart';
+import 'package:vistox/Modal/productdiscriptionTap.dart';
 import 'package:vistox/Modal/productdiscriptionmodal.dart';
 import 'package:vistox/bloc/productdiscriptionbloc.dart';
 
@@ -11,27 +13,30 @@ class ProductDiscription extends StatefulWidget {
 
 class _ProductDiscriptionState extends State<ProductDiscription> {
   int pageIndex = 0;
-  int activeTab = 0;
+  int alltab = 0;
+  String? idofoffer;
   int id = 5;
   @override
   Widget build(BuildContext context) {
-    ProductDiscriptionBlocss.fetchproductDiscription(id);
-    switchWithInt() {
-      switch (activeTab) {
-        case 1:
-          return Offer();
-        // case 2:
-        //   return Profile();
-        // case 3:
-        //   return Wishlist();
-        // case 4:
-        //   return MyBeg();
-        case 0:
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    print(rcvdData['super_id']);
+    ProductDiscriptionBlocss.fetchProductDiscriptionTab(rcvdData['super_id']);
+    // switchWithInt() {
+    //   switch (activeTab) {
+    //     case 1:
+    //       return Offer();
+    //     // case 2:
+    //     //   return Profile();
+    //     // case 3:
+    //     //   return Wishlist();
+    //     // case 4:
+    //     //   return MyBeg();
+    //     case 0:
 
-        default:
-          return Overview();
-      }
-    }
+    //     default:
+    //       return Overview();
+    //   }
+    // }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -154,211 +159,64 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
                                   topRight: Radius.circular(10)),
                             ),
                             child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(children: [
-                                Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          activeTab = 0;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Overview",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: activeTab == 0
-                                                    ? Color.fromARGB(
-                                                        255, 18, 94, 226)
-                                                    : Colors.black),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                6,
-                                            height: 2,
-                                            decoration: BoxDecoration(
-                                              color: activeTab == 0
-                                                  ? Color.fromARGB(
-                                                      255, 18, 94, 226)
-                                                  : Colors.white,
-                                              // boxShadow: [
-                                              //   BoxShadow(
-                                              //     color: Colors.black45.withOpacity(.1),
-                                              //     spreadRadius: 2,
-                                              //     blurRadius: 2,
-                                              //     offset: Offset(1,
-                                              //         2), // changes position of shadow
-                                              //   )
-                                              // ],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                                Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          activeTab = 1;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Offers",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: activeTab == 1
-                                                    ? Color.fromARGB(
-                                                        255, 18, 94, 226)
-                                                    : Colors.black),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                6,
-                                            height: 2,
-                                            decoration: BoxDecoration(
-                                              color: activeTab == 1
-                                                  ? Color.fromARGB(
-                                                      255, 18, 94, 226)
-                                                  : Colors.white,
-                                              // boxShadow: [
-                                              //   BoxShadow(
-                                              //     color: Colors.black45.withOpacity(.1),
-                                              //     spreadRadius: 2,
-                                              //     blurRadius: 2,
-                                              //     offset: Offset(1,
-                                              //         2), // changes position of shadow
-                                              //   )
-                                              // ],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                                Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          activeTab = 2;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Menus",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: activeTab == 2
-                                                    ? Color.fromARGB(
-                                                        255, 18, 94, 226)
-                                                    : Colors.black),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                6,
-                                            height: 2,
-                                            decoration: BoxDecoration(
-                                              color: activeTab == 2
-                                                  ? Color.fromARGB(
-                                                      255, 18, 94, 226)
-                                                  : Colors.white,
-                                              // boxShadow: [
-                                              //   BoxShadow(
-                                              //     color: Colors.black45.withOpacity(.1),
-                                              //     spreadRadius: 2,
-                                              //     blurRadius: 2,
-                                              //     offset: Offset(1,
-                                              //         2), // changes position of shadow
-                                              //   )
-                                              // ],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                                Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          activeTab = 3;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Reviews",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: activeTab == 3
-                                                    ? Color.fromARGB(
-                                                        255, 18, 94, 226)
-                                                    : Colors.black),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                6,
-                                            height: 2,
-                                            decoration: BoxDecoration(
-                                              color: activeTab == 3
-                                                  ? Color.fromARGB(
-                                                      255, 18, 94, 226)
-                                                  : Colors.white,
-                                              // boxShadow: [
-                                              //   BoxShadow(
-                                              //     color: Colors.black45.withOpacity(.1),
-                                              //     spreadRadius: 2,
-                                              //     blurRadius: 2,
-                                              //     offset: Offset(1,
-                                              //         2), // changes position of shadow
-                                              //   )
-                                              // ],
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ))
-                              ]),
-                            ),
+                                scrollDirection: Axis.horizontal,
+                                child: StreamBuilder<
+                                        ProductDiscriptionTabModal>(
+                                    stream: ProductDiscriptionBlocss
+                                        .getproductDiscriptionTab.stream,
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) return Container();
+                                      return Row(
+                                          children: List.generate(
+                                        snapshot.data!.tab.length,
+                                        (index) => Padding(
+                                            padding: const EdgeInsets.all(12.0),
+                                            child: InkWell(
+                                              onTap: () {
+                                                idofoffer = snapshot
+                                                    .data!.tab[index].id;
+                                                print(idofoffer);
+                                                setState(() {
+                                                  alltab = index;
+                                                });
+                                              },
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    snapshot
+                                                        .data!.tab[index].name!,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: alltab == index
+                                                            ? Colors.blue
+                                                            : Colors.black),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                      height: 4,
+                                                      color: alltab == index
+                                                          ? Colors.blue
+                                                          : Colors.white)
+                                                ],
+                                              ),
+                                            )),
+                                      ));
+                                    })),
                           ),
                         ))
                   ],
                 ),
-                switchWithInt()
+                idofoffer == "1" ? Container() : Container(),
+                idofoffer == "2" ? Container() : Container(),
+                idofoffer == "3" ? Offer() : Container(),
               ]);
             }),
       ),
@@ -604,7 +462,7 @@ class Overview extends StatelessWidget {
   int id = 5;
   @override
   Widget build(BuildContext context) {
-    ProductDiscriptionBlocss.fetchproductDiscription(id);
+    // ProductDiscriptionBlocss.fetchproductDiscription(id);
     return StreamBuilder<ProductDiscriptionModal>(
         stream: ProductDiscriptionBlocss.getproductDiscription.stream,
         builder: (context, snapshot) {

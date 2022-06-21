@@ -1,4 +1,5 @@
 import 'package:rxdart/subjects.dart';
+import 'package:vistox/Modal/productdiscriptionTap.dart';
 import 'package:vistox/Modal/productdiscriptionmodal.dart';
 import 'package:vistox/repo/productdiscriptionrepo.dart';
 
@@ -21,6 +22,25 @@ class ProductDiscriptionBloc {
       // print(homeSlider.imgs!.length);
 
       _liveproductDiscription.add(productDiscription);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<ProductDiscriptionTabModal> _liveproductDiscriptionTab =
+      BehaviorSubject<ProductDiscriptionTabModal>();
+
+  BehaviorSubject<ProductDiscriptionTabModal> get getproductDiscriptionTab =>
+      _liveproductDiscriptionTab;
+
+  fetchProductDiscriptionTab(id) async {
+    try {
+      _liveproductDiscriptionTab.addError('error');
+      ProductDiscriptionTabModal productDiscriptiontab =
+          await _productDiscriptionRepo.fetchProductDiscriptionTab(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveproductDiscriptionTab.add(productDiscriptiontab);
     } catch (e) {
       print(e);
     }

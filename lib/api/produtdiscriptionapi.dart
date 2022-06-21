@@ -18,4 +18,21 @@ class ProductDiscriptionApi {
       // print(e);
     } finally {}
   }
+
+  Future<dynamic> fetchProductDiscriptionTab(id) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-tabs-super-cat-vis.php"),
+          body: {'super_app_id': id});
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
 }
