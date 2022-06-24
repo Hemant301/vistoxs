@@ -16,6 +16,24 @@ class HomeRepo {
     return ClosetoYouModal(jsonResponse);
   }
 
+  Future<OverViewModal> fetchOverview(id, storeid) async {
+    final response = await homeApi.fetchOverview(id, storeid);
+    var jsonResponse = jsonDecode(response.body) as List;
+    return OverViewModal(jsonResponse);
+  }
+
+  Future<FeatureModal> fetchFeature(id, storeid) async {
+    final response = await homeApi.fetchFeature(id, storeid);
+    var jsonResponse = jsonDecode(response.body) as List;
+    return FeatureModal(jsonResponse);
+  }
+
+  Future<StoreModal> fetchStoredata(id, storeid) async {
+    final response = await homeApi.fetchStoredata(id, storeid);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return StoreModal(jsonResponse);
+  }
+
   Future<ClosetoYouModal> fetchSection2(id) async {
     final response = await homeApi.fetchSection2(id);
     var jsonResponse = jsonDecode(response.body) as Map;

@@ -38,6 +38,57 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<OverViewModal> _liveStoreId =
+      BehaviorSubject<OverViewModal>();
+
+  BehaviorSubject<OverViewModal> get getOverview => _liveStoreId;
+
+  fetchOverview(id, storeid) async {
+    try {
+      _liveStoreId.addError('error');
+      OverViewModal homeSlider = await _homeRepo.fetchOverview(id, storeid);
+      // print(homeSlider.imgs!.length);
+
+      _liveStoreId.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<FeatureModal> _liveFeatures =
+      BehaviorSubject<FeatureModal>();
+
+  BehaviorSubject<FeatureModal> get getfeatures => _liveFeatures;
+
+  fetchFeature(id, storeid) async {
+    try {
+      _liveFeatures.addError('error');
+      FeatureModal homeSlider = await _homeRepo.fetchFeature(id, storeid);
+      // print(homeSlider.imgs!.length);
+
+      _liveFeatures.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<StoreModal> _liveStoredata =
+      BehaviorSubject<StoreModal>();
+
+  BehaviorSubject<StoreModal> get getStaoredata => _liveStoredata;
+
+  fetchStoredata(id, storeid) async {
+    try {
+      _liveStoredata.addError('error');
+      StoreModal homeSlider = await _homeRepo.fetchStoredata(id, storeid);
+      // print(homeSlider.imgs!.length);
+
+      _liveStoredata.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<ClosetoYouModal> _liveSection2 =
       BehaviorSubject<ClosetoYouModal>();
 

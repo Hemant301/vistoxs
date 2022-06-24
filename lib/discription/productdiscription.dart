@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vistox/Modal/HomePageModal.dart';
+import 'package:vistox/Modal/homemodal.dart';
 import 'package:vistox/Modal/productdiscriptionTap.dart';
 import 'package:vistox/Modal/productdiscriptionmodal.dart';
+import 'package:vistox/bloc/homebloc.dart';
 import 'package:vistox/bloc/productdiscriptionbloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -15,13 +17,25 @@ class ProductDiscription extends StatefulWidget {
 class _ProductDiscriptionState extends State<ProductDiscription> {
   int pageIndex = 0;
   int alltab = 0;
-  String? idofoffer;
+  String idofoffer = "1";
   int id = 5;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+
+    final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
+    ProductDiscriptionBlocss.fetchProductDiscriptionTab(rcvdData['super_id']);
+    homebloc.fetchStoredata(rcvdData['super_id'], rcvdData['store_id']);
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map rcvdData = ModalRoute.of(context)!.settings.arguments as Map;
     print(rcvdData['super_id']);
-    ProductDiscriptionBlocss.fetchProductDiscriptionTab(rcvdData['super_id']);
+    print('store id${rcvdData['store_id']}');
+    // ProductDiscriptionBlocss.fetchProductDiscriptionTab(rcvdData['super_id']);
+    // homebloc.fetchStoredata(rcvdData['super_id'], rcvdData['store_id']);
     // switchWithInt() {
     //   switch (activeTab) {
     //     case 1:
@@ -42,9 +56,10 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: StreamBuilder<ProductDiscriptionModal>(
-            stream: ProductDiscriptionBlocss.getproductDiscription.stream,
-            builder: (context, snapshot) {
+        child: StreamBuilder<StoreModal>(
+            stream: homebloc.getStaoredata.stream,
+            builder: (context, newsnapshot) {
+              if (!newsnapshot.hasData) return Container();
               return Column(children: [
                 Stack(
                   children: [
@@ -67,13 +82,13 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
                           });
                         },
                         children: List.generate(
-                          3,
+                          newsnapshot.data!.store_image.length,
                           (index) => InkWell(
                             child: Container(
                               // height: 100,
                               // width: 100,
-                              child: Image.asset(
-                                "assets/dummy/macdonal.png",
+                              child: Image.network(
+                                newsnapshot.data!.store_image[index].img!,
                                 fit: BoxFit.fill,
 
                                 // fit: BoxFit.fill,
@@ -175,7 +190,7 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
                                             child: InkWell(
                                               onTap: () {
                                                 idofoffer = snapshot
-                                                    .data!.tab[index].id;
+                                                    .data!.tab[index].id!;
                                                 print(idofoffer);
                                                 setState(() {
                                                   alltab = index;
@@ -215,7 +230,12 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
                         ))
                   ],
                 ),
-                idofoffer == "1" ? Overview() : Container(),
+                idofoffer == "1"
+                    ? Overview(
+                        storeid: rcvdData['store_id'],
+                        superappid: rcvdData['super_id'],
+                      )
+                    : Container(),
                 idofoffer == "2" ? Container() : Container(),
                 idofoffer == "3" ? Offer() : Container(),
                 idofoffer == "4"
@@ -896,111 +916,119 @@ class Offer extends StatelessWidget {
 }
 
 class Overview extends StatelessWidget {
-  Overview({
-    Key? key,
-  }) : super(key: key);
+  Overview({Key? key, required this.storeid, required this.superappid})
+      : super(key: key);
+  final String storeid;
+  final String superappid;
   int id = 5;
   @override
   Widget build(BuildContext context) {
+    homebloc.fetchOverview(superappid, storeid);
+    homebloc.fetchFeature(superappid, storeid);
     // ProductDiscriptionBlocss.fetchproductDiscription(id);
     return Column(
       children: [
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              // height: 60,
-              padding: const EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black45.withOpacity(.1),
-                    spreadRadius: 2,
-                    blurRadius: 2,
-                    offset: Offset(1, 2), // changes position of shadow
-                  )
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "The Redberry Bar",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                  ),
-                  Text(
-                    "Jalaram Commercial Center, Sakinaka, Andheri East",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.grey[400],
-                        // fontWeight: FontWeight.bold,
-                        fontSize: 10),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "₹ 2,700 for 2 *",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                      ),
-                      Text(
-                        " Mexican, American",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Now Open .",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.green,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                      ),
-                      Text(
-                        " Closes at 00:59 AM",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Text(
-                      "Upto 15% off with HDFC Bank Credit Cards",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey[400],
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 10),
+        StreamBuilder<StoreModal>(
+            stream: homebloc.getStaoredata.stream,
+            builder: (context, newsnapshot) {
+              if (!newsnapshot.hasData) return Container();
+              return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    // height: 60,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45.withOpacity(.1),
+                          spreadRadius: 2,
+                          blurRadius: 2,
+                          offset: Offset(1, 2), // changes position of shadow
+                        )
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10)),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          newsnapshot.data!.store_name!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14),
+                        ),
+                        Text(
+                          newsnapshot.data!.store_description!,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 10),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              newsnapshot.data!.avg_price!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                            Text(
+                              newsnapshot.data!.key_feature!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.grey[400],
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Now Open .",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                            Text(
+                              " Closes at ${newsnapshot.data!.close_time}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.grey[400],
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: Text(
+                            "Upto 15% off with HDFC Bank Credit Cards",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.grey[400],
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 10),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ));
+            }),
         SizedBox(
           height: 30,
         ),
@@ -1262,176 +1290,115 @@ class Overview extends StatelessWidget {
                   //       fontWeight: FontWeight.bold,
                   //       fontSize: 12),
                   // ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              "assets/makup.png",
-                              height: 40,
-                              width: 40,
+                  StreamBuilder<OverViewModal>(
+                      stream: homebloc.getOverview.stream,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) return Container();
+                        return Column(
+                          children: List.generate(
+                            snapshot.data!.overview.length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        "assets/makup.png",
+                                        height: 40,
+                                        width: 40,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          snapshot.data!.overview[index].title!,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          snapshot.data!.overview[index].desc!,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.grey[400],
+                                              // fontWeight: FontWeight.bold,
+                                              fontSize: 10),
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
                             ),
                           ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "CUISINE",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
+                        );
+                      }),
+                  Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                "assets/makup.png",
+                                height: 40,
+                                width: 40,
                               ),
-                              Text(
-                                "Mexican, American",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    // fontWeight: FontWeight.bold,
-                                    fontSize: 10),
-                              ),
-                            ],
-                          ),
-                        ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              "assets/makup.png",
-                              height: 40,
-                              width: 40,
                             ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "ESTABLISHMENT TYPE",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                              Text(
-                                "Nightlife",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    // fontWeight: FontWeight.bold,
-                                    fontSize: 10),
-                              ),
-                            ],
-                          ),
-                        ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              "assets/makup.png",
-                              height: 40,
-                              width: 40,
+                            SizedBox(
+                              width: 20,
                             ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "MUST TRY",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: Text(
-                                  "Seafood Basket, Singapore Sling, Chocolate Caramel Tart, Dessert Platter, Mango Tango, Grilled Salmon.",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      color: Colors.grey[400],
-                                      // fontWeight: FontWeight.bold,
-                                      fontSize: 10),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              "assets/makup.png",
-                              height: 40,
-                              width: 40,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "AVERAGE COST",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: Text(
-                                  "₹ 2,700* for 2 Includes Alcohol\n₹ 2,700* for Pint of beer\n\r *approx amount",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      color: Colors.grey[400],
-                                      // fontWeight: FontWeight.bold,
-                                      fontSize: 10),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ]),
-                  ),
+                            StreamBuilder<FeatureModal>(
+                                stream: homebloc.getfeatures.stream,
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) return Container();
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'FEATURES & FACILITIES',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        child: GridView.count(
+                                          shrinkWrap: true,
+                                          crossAxisCount: 2,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          childAspectRatio: 2 / 0.6,
+                                          children: List.generate(
+                                              snapshot.data!.overview.length,
+                                              (index) => Text(snapshot.data!
+                                                  .overview[index].title!)),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                }),
+                          ]),
+                    ],
+                  )
                 ],
               ),
             ),

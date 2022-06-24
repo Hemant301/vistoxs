@@ -24,7 +24,55 @@ class HomeApi {
           Uri.parse("${baseUrl}super_app_home_section1.php"),
           body: {'super_app_id': id});
       if (response.statusCode == 200) {
-        // print(response.body);
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchOverview(id, storeid) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-overview-section-content-vis.php"),
+          body: {'super_app_id': id, 'store_id': storeid});
+      if (response.statusCode == 200) {
+        //  print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchFeature(id, storeid) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-overview-feature-facility-vis.php"),
+          body: {'super_app_id': id, 'store_id': storeid});
+      if (response.statusCode == 200) {
+        //  print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchStoredata(id, storeid) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-store-detail-vis.php"),
+          body: {'super_app_id': id, 'store_id': storeid});
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');

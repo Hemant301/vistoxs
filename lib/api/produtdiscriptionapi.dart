@@ -7,7 +7,7 @@ class ProductDiscriptionApi {
     try {
       final response = await client.post(
           Uri.parse("${baseUrl}get_product_detail_vis.php"),
-          body: {'store_id': "5"});
+          body: {'store_id': '$id'});
       if (response.statusCode == 200) {
         print(response.body);
         return response;

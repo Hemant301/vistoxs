@@ -1,4 +1,4 @@
-#Wed Jun 22 12:11:32 IST 2022
+#Fri Jun 24 12:45:57 IST 2022
 base.0=/Users/thecybertize/Documents/FlutterApp/vistoxs/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

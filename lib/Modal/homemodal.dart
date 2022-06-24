@@ -97,11 +97,86 @@ class ClosetoYouModal {
 
 class CloseStoreListModal {
   String? storename;
+  String? storeid;
   String? storeimage;
   String? cityname;
   CloseStoreListModal(js) {
     storename = js['store_name'] ?? "";
+    storeid = js['store_id'] ?? "";
     storeimage = js['store_image'] ?? "";
     cityname = js['city_name'] ?? "";
+  }
+}
+
+class OverViewModal {
+  List<OverviewdetailModal> overview = [];
+  OverViewModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      overview.add(OverviewdetailModal(js[i]));
+    }
+  }
+}
+
+class OverviewdetailModal {
+  String? id;
+  String? title;
+  String? desc;
+  OverviewdetailModal(js) {
+    id = js['id'] ?? "";
+    title = js['title'] ?? "";
+    desc = js['description'] ?? "";
+  }
+}
+
+class FeatureModal {
+  List<FeaturedetailModal> overview = [];
+  FeatureModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      overview.add(FeaturedetailModal(js[i]));
+    }
+  }
+}
+
+class FeaturedetailModal {
+  String? id;
+  String? title;
+  // String? desc;
+  FeaturedetailModal(js) {
+    id = js['id'] ?? "";
+    title = js['title'] ?? "";
+    // desc = js['description'] ?? "";
+  }
+}
+
+class StoreModal {
+  String? id;
+  String? store_name;
+  String? store_description;
+  List<Storeimage> store_image = [];
+  String? store_address;
+  int? is_open;
+  String? close_time;
+  String? avg_price;
+  String? key_feature;
+  StoreModal(js) {
+    id = js['id'] ?? "";
+    store_name = js['store_name'] ?? "";
+    store_description = js['store_description'] ?? "";
+    // store_image = js['store_image'] ?? "";
+    store_address = js['store_address'] ?? "";
+    is_open = js['is_open'] ?? "";
+    close_time = js['close_time'] ?? "";
+    avg_price = js['avg_price'] ?? "";
+    key_feature = js['key_feature'] ?? "";
+    for (var i = 0; i < js['store_image'].length; i++) {
+      store_image.add(Storeimage(js['store_image'][i]));
+    }
+  }
+}
+
+class Storeimage {
+  String? img;
+  Storeimage(js) {
+    img = js['img'] ?? "";
   }
 }
