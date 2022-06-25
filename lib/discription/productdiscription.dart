@@ -238,9 +238,7 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
                     : Container(),
                 idofoffer == "2" ? Container() : Container(),
                 idofoffer == "3" ? Offer() : Container(),
-                idofoffer == "4"
-                    ? ReviewSection()
-                    : CircularProgressIndicator(),
+                idofoffer == "4" ? ReviewSection() : Container(),
               ]);
             }),
       ),
@@ -994,14 +992,23 @@ class Overview extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Text(
-                              "Now Open .",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 12),
-                            ),
+                            newsnapshot.data!.is_open == 1
+                                ? Text(
+                                    "Now Open .",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        // fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  )
+                                : Text(
+                                    "Closed Now .",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        // fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
                             Text(
                               " Closes at ${newsnapshot.data!.close_time}",
                               textAlign: TextAlign.center,
@@ -1013,18 +1020,18 @@ class Overview extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
-                        Center(
-                          child: Text(
-                            "Upto 15% off with HDFC Bank Credit Cards",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.grey[400],
-                                // fontWeight: FontWeight.bold,
-                                fontSize: 10),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Text(
+                        //     "Upto 15% off with HDFC Bank Credit Cards",
+                        //     textAlign: TextAlign.center,
+                        //     style: TextStyle(
+                        //         color: Colors.grey[400],
+                        //         // fontWeight: FontWeight.bold,
+                        //         fontSize: 10),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ));
@@ -1165,35 +1172,108 @@ class Overview extends StatelessWidget {
                 ]),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            // height: 60,
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black45.withOpacity(.1),
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: Offset(1, 2), // changes position of shadow
-                )
-              ],
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        //   child: Container(
+        //     width: MediaQuery.of(context).size.width,
+        //     // height: 60,
+        //     padding: const EdgeInsets.all(10.0),
+        //     decoration: BoxDecoration(
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.black45.withOpacity(.1),
+        //           spreadRadius: 2,
+        //           blurRadius: 2,
+        //           offset: Offset(1, 2), // changes position of shadow
+        //         )
+        //       ],
+        //       color: Colors.white,
+        //       borderRadius: BorderRadius.circular(10),
+        //     ),
+        //     child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: Column(
+        //               mainAxisAlignment: MainAxisAlignment.start,
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: [
+        //                 Text(
+        //                   "Stories",
+        //                   textAlign: TextAlign.center,
+        //                   style: TextStyle(
+        //                       color: Colors.black,
+        //                       fontWeight: FontWeight.bold,
+        //                       fontSize: 12),
+        //                 ),
+        //                 Container(
+        //                   width: MediaQuery.of(context).size.width / 2,
+        //                   child: Text(
+        //                     "Capture memories and be the first one to upload a story here.",
+        //                     textAlign: TextAlign.start,
+        //                     style: TextStyle(
+        //                         color: Colors.grey[400],
+        //                         // fontWeight: FontWeight.bold,
+        //                         fontSize: 10),
+        //                   ),
+        //                 ),
+        //                 SizedBox(
+        //                   height: 10,
+        //                 ),
+        //                 Text(
+        //                   "ADD  STORY",
+        //                   textAlign: TextAlign.center,
+        //                   style: TextStyle(
+        //                       color: Color.fromARGB(255, 18, 94, 226),
+        //                       fontWeight: FontWeight.bold,
+        //                       fontSize: 12),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //           Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: Image.asset(
+        //               "assets/makup.png",
+        //               height: 40,
+        //               width: 40,
+        //             ),
+        //           ),
+        //         ]),
+        //   ),
+        // ),
+        StreamBuilder<StoreModal>(
+            stream: homebloc.getStaoredata.stream,
+            builder: (context, newsnapshot) {
+              if (!newsnapshot.hasData) return Container();
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: 60,
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45.withOpacity(.1),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: Offset(1, 2), // changes position of shadow
+                      )
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Stories",
+                          "About",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black,
@@ -1201,209 +1281,151 @@ class Overview extends StatelessWidget {
                               fontSize: 12),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width / 2,
+                          width: MediaQuery.of(context).size.width / 1.3,
                           child: Text(
-                            "Capture memories and be the first one to upload a story here.",
+                            newsnapshot.data!.short_description!,
                             textAlign: TextAlign.start,
                             style: TextStyle(
                                 color: Colors.grey[400],
                                 // fontWeight: FontWeight.bold,
-                                fontSize: 10),
+                                fontSize: 12),
                           ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          "ADD  STORY",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 18, 94, 226),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                        ),
+                        // Text(
+                        //   "ADD  STORY",
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //       color: Color.fromARGB(255, 18, 94, 226),
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 12),
+                        // ),
+                        StreamBuilder<OverViewModal>(
+                            stream: homebloc.getOverview.stream,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) return Container();
+                              return Column(
+                                children: List.generate(
+                                  snapshot.data!.overview.length,
+                                  (index) => Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Row(
+                                        // mainAxisAlignment: MainAxisAlignment.start,
+                                        // crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.asset(
+                                              "assets/makup.png",
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                snapshot.data!.overview[index]
+                                                    .title!,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12),
+                                              ),
+                                              Text(
+                                                snapshot.data!.overview[index]
+                                                    .desc!,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.grey[400],
+                                                    // fontWeight: FontWeight.bold,
+                                                    fontSize: 10),
+                                              ),
+                                            ],
+                                          ),
+                                        ]),
+                                  ),
+                                ),
+                              );
+                            }),
+                        Column(
+                          children: [
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      "assets/makup.png",
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  StreamBuilder<FeatureModal>(
+                                      stream: homebloc.getfeatures.stream,
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData)
+                                          return Container();
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'FEATURES & FACILITIES',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12),
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
+                                              child: GridView.count(
+                                                shrinkWrap: true,
+                                                crossAxisCount: 2,
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                childAspectRatio: 2 / 0.6,
+                                                children: List.generate(
+                                                    snapshot
+                                                        .data!.overview.length,
+                                                    (index) => Text(snapshot
+                                                        .data!
+                                                        .overview[index]
+                                                        .title!)),
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      }),
+                                ]),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      "assets/makup.png",
-                      height: 40,
-                      width: 40,
-                    ),
-                  ),
-                ]),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            // height: 60,
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black45.withOpacity(.1),
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: Offset(1, 2), // changes position of shadow
-                )
-              ],
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "About",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: Text(
-                      "This restaurant has the best Lorem Ipsum which is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. read less",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.grey[400],
-                          // fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // Text(
-                  //   "ADD  STORY",
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(
-                  //       color: Color.fromARGB(255, 18, 94, 226),
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: 12),
-                  // ),
-                  StreamBuilder<OverViewModal>(
-                      stream: homebloc.getOverview.stream,
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) return Container();
-                        return Column(
-                          children: List.generate(
-                            snapshot.data!.overview.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Image.asset(
-                                        "assets/makup.png",
-                                        height: 40,
-                                        width: 40,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          snapshot.data!.overview[index].title!,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                        Text(
-                                          snapshot.data!.overview[index].desc!,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.grey[400],
-                                              // fontWeight: FontWeight.bold,
-                                              fontSize: 10),
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                        );
-                      }),
-                  Column(
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                "assets/makup.png",
-                                height: 40,
-                                width: 40,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            StreamBuilder<FeatureModal>(
-                                stream: homebloc.getfeatures.stream,
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData) return Container();
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'FEATURES & FACILITIES',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        child: GridView.count(
-                                          shrinkWrap: true,
-                                          crossAxisCount: 2,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          childAspectRatio: 2 / 0.6,
-                                          children: List.generate(
-                                              snapshot.data!.overview.length,
-                                              (index) => Text(snapshot.data!
-                                                  .overview[index].title!)),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                }),
-                          ]),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+              );
+            }),
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Padding(

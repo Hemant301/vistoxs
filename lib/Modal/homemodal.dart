@@ -152,6 +152,7 @@ class StoreModal {
   String? id;
   String? store_name;
   String? store_description;
+  String? short_description;
   List<Storeimage> store_image = [];
   String? store_address;
   int? is_open;
@@ -162,6 +163,7 @@ class StoreModal {
     id = js['id'] ?? "";
     store_name = js['store_name'] ?? "";
     store_description = js['store_description'] ?? "";
+    short_description = js['short_description'] ?? "";
     // store_image = js['store_image'] ?? "";
     store_address = js['store_address'] ?? "";
     is_open = js['is_open'] ?? "";
