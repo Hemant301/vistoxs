@@ -15,6 +15,44 @@ class SliderimgModal {
   }
 }
 
+class TabModal {
+  List<TabDetailModal> data = [];
+  TabModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(TabDetailModal(js[i]));
+    }
+  }
+}
+
+class TabDetailModal {
+  String? name;
+  String? id;
+
+  TabDetailModal(js) {
+    name = js['name'] ?? "";
+    id = js['id'] ?? "";
+  }
+}
+
+class MenuTabimageModal {
+  List<MenuTabModal> data = [];
+  MenuTabimageModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(MenuTabModal(js[i]));
+    }
+  }
+}
+
+class MenuTabModal {
+  String? menu_image;
+  String? id;
+
+  MenuTabModal(js) {
+    menu_image = js['menu_image'] ?? "";
+    id = js['id'] ?? "";
+  }
+}
+
 class SuperAppModal {
   List<SupercatdetailModal> data = [];
   SuperAppModal(js) {

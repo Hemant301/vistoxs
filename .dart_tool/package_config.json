@@ -242,6 +242,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "photo_view",
+      "rootUri": "file:///Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/photo_view-0.14.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0",
       "packageUri": "lib/",
@@ -392,7 +398,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-06-25T04:56:46.342162Z",
+  "generated": "2022-06-25T07:33:31.853731Z",
   "generator": "pub",
   "generatorVersion": "2.17.5"
 }

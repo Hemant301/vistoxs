@@ -6,6 +6,7 @@ import 'package:vistox/Modal/productdiscriptionmodal.dart';
 import 'package:vistox/bloc/homebloc.dart';
 import 'package:vistox/bloc/productdiscriptionbloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:vistox/discription/menu.dart';
 
 class ProductDiscription extends StatefulWidget {
   const ProductDiscription({Key? key}) : super(key: key);
@@ -236,7 +237,7 @@ class _ProductDiscriptionState extends State<ProductDiscription> {
                         superappid: rcvdData['super_id'],
                       )
                     : Container(),
-                idofoffer == "2" ? Container() : Container(),
+                idofoffer == "2" ? MenuPage() : Container(),
                 idofoffer == "3" ? Offer() : Container(),
                 idofoffer == "4" ? ReviewSection() : Container(),
               ]);

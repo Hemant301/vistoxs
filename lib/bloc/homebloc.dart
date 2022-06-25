@@ -21,6 +21,39 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<TabModal> _livemenuTab = BehaviorSubject<TabModal>();
+
+  BehaviorSubject<TabModal> get getMenuTab => _livemenuTab;
+
+  fetchmenutab(id) async {
+    try {
+      _livemenuTab.addError('error');
+      TabModal homeSlider = await _homeRepo.fetchmenutab(id);
+      // print(homeSlider.imgs!.length);
+
+      _livemenuTab.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<MenuTabimageModal> _liveMenuImage =
+      BehaviorSubject<MenuTabimageModal>();
+
+  BehaviorSubject<MenuTabimageModal> get getMenuimage => _liveMenuImage;
+
+  fetchmenuImage(id) async {
+    try {
+      _liveMenuImage.addError('error');
+      MenuTabimageModal homeSlider = await _homeRepo.fetchmenuImage(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveMenuImage.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<ClosetoYouModal> _liveClosetoyou =
       BehaviorSubject<ClosetoYouModal>();
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:vistox/utils/const.dart';
 
@@ -9,6 +11,61 @@ class HomeApi {
           body: {'super_app_id': id});
       if (response.statusCode == 200) {
         // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchmenutab(id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-subtab-vis.php"),
+          body: {'super_tab_id': id});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> getMenuid({
+    String id = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-subtab-vis.php"),
+          body: {'super_tab_id': id});
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return jsonDecode(response.body) as List;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      //  print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
+  Future<dynamic> fetchmenuImage(id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-subtab-option-vis.php"),
+          body: {'tab_id': id});
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -193,3 +250,5 @@ class HomeApi {
     } finally {}
   }
 }
+
+final homeapi = HomeApi();

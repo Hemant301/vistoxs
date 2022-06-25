@@ -10,6 +10,18 @@ class HomeRepo {
     return SliderModal(jsonResponse);
   }
 
+  Future<TabModal> fetchmenutab(id) async {
+    final response = await homeApi.fetchmenutab(id);
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return TabModal(jsonResponse);
+  }
+
+  Future<MenuTabimageModal> fetchmenuImage(id) async {
+    final response = await homeApi.fetchmenuImage(id);
+    var jsonResponse = jsonDecode(response.body) as List<dynamic>;
+    return MenuTabimageModal(jsonResponse);
+  }
+
   Future<ClosetoYouModal> fetchClosetoyou(id) async {
     final response = await homeApi.fetchClosetoyou(id);
     var jsonResponse = jsonDecode(response.body) as Map;
