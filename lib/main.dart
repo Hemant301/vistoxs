@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vistox/Home/HomeScreen.dart';
 import 'package:vistox/Home/category.dart';
 
-
 import 'package:vistox/discription/productdiscription.dart';
 
 import 'package:vistox/nav/navigationbar.dart';
@@ -43,10 +42,6 @@ class MyApp extends StatelessWidget {
           "/setting": (context) => Settings(),
           "/notification": (context) => NotificationPage(),
           "/productdiscription": (context) => ProductDiscription(),
-          "/productdiscription": (context) => ProductDiscription(),
-        
-       
-          
           "/faq": (context) => Faq(),
           '/pincode/auto': (context) => PincodePage(),
           '/pincode/mannual': (context) => MannualPage(),
