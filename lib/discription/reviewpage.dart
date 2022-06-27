@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vistox/api/homeapi.dart';
 import 'package:vistox/discription/productdiscription.dart';
 
 class ReviewSection extends StatefulWidget {
-  const ReviewSection({Key? key}) : super(key: key);
-
+  const ReviewSection({Key? key, this.storeid}) : super(key: key);
+  final String? storeid;
   @override
   State<ReviewSection> createState() => _ReviewSectionState();
 }
 
 class _ReviewSectionState extends State<ReviewSection> {
+  bool showTextbox = false;
+  double rate = 0.0;
+  TextEditingController _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -342,13 +347,63 @@ class _ReviewSectionState extends State<ReviewSection> {
                           color: Colors.amber,
                         ),
                     onRatingUpdate: (rating) {
-                      // rate = rating;
+                      setState(() {
+                        showTextbox = true;
+                      });
+                      rate = rating;
                       // print(rate.runtimeType);
                       print(rating);
                     }),
                 SizedBox(
                   height: 20,
                 ),
+                showTextbox == false
+                    ? Container()
+                    : Column(
+                        children: [
+                          TextFormField(
+                            maxLines: 4,
+                            controller: _commentController,
+                            // minLines: 4,
+                            decoration:
+                                InputDecoration(hintText: 'Add Comment'),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              HomeApi _api = HomeApi();
+                              Map data = await _api.addComment(
+                                  id: widget.storeid!,
+                                  comment: _commentController.text,
+                                  rate: rate);
+
+                              if (data['response'].toString() == "1") {
+                                setState(() {
+                                  showTextbox = false;
+                                });
+                                Fluttertoast.showToast(
+                                    msg: 'Successfully Submitted');
+                              }
+                            },
+                            child: Container(
+                                width: MediaQuery.of(context).size.width - 40,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Center(
+                                    child: Text(
+                                  'Submit',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -410,8 +465,10 @@ class _ReviewSectionState extends State<ReviewSection> {
             height: 40,
           ),
           ReviewItem(
-            image: "assets/dummy/zan-WrueFKpTlQs-unsplash 1.png",
-            profileimage: "",
+            image:
+                "https://images.unsplash.com/photo-1502759683299-cdcd6974244f?auto=format&fit=crop&w=440&h=220&q=60",
+            profileimage:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgSmojUgwjIB87c4Q0hLCAyl__oiTySWGWJUZtUNHlHjBALLzTsu_vMHYMaEwLts4QEoo&usqp=CAU",
             name: "hemant",
             time: "3 min ago",
             like: "5",
@@ -458,7 +515,8 @@ class ReviewItem extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 7,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(image: AssetImage(profileimage!))),
+                      image:
+                          DecorationImage(image: NetworkImage(profileimage!))),
                 ),
                 SizedBox(
                   width: 10,
@@ -518,7 +576,7 @@ class ReviewItem extends StatelessWidget {
         SizedBox(
           height: 15,
         ),
-        Image.asset(image!),
+        Image.network(image!),
         SizedBox(
           height: 15,
         ),

@@ -59,6 +59,35 @@ class HomeApi {
     }
   }
 
+  Future<dynamic> addComment({
+    String id = "",
+    double rate = 0.0,
+    String comment = "",
+  }) async {
+    var client = http.Client();
+    try {
+      final response =
+          await client.post(Uri.parse("${baseUrl}save-rating-vis.php"), body: {
+        'account_id': '1',
+        'store_id': id,
+        'rating': rate.toString(),
+        'comment': comment,
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return jsonDecode(response.body) as Map;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        throw "Somethiing went wrong";
+      }
+    } catch (e) {
+      //  print(e);
+      throw "Somethiing went wrong";
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> fetchmenuImage(id) async {
     try {
       final response = await client.post(
