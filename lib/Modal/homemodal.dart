@@ -220,3 +220,44 @@ class Storeimage {
     img = js['img'] ?? "";
   }
 }
+
+class RatingModal {
+  RatesModal? rating;
+  List<ReviewModal> review = [];
+  RatingModal(js) {
+    rating = RatesModal(js['rating']);
+    for (var i = 0; i < js['review'].length; i++) {
+      review.add(ReviewModal(js['review'][i]));
+    }
+  }
+}
+
+class RatesModal {
+  dynamic? rating;
+  int? exc_rating;
+  int? good_rating;
+  int? avg_rating;
+  int? poor_rating;
+  int? bad_rating;
+  RatesModal(js) {
+    rating = js['rating'] ?? 0;
+    exc_rating = js['exc_rating'] ?? 0;
+    good_rating = js['good_rating'] ?? 0;
+    avg_rating = js['avg_rating'] ?? 0;
+    poor_rating = js['poor_rating'] ?? 0;
+    bad_rating = js['bad_rating'] ?? 0;
+  }
+}
+
+class ReviewModal {
+  String? user_name;
+  String? user_image;
+  String? comment;
+  String? review_image;
+  ReviewModal(js) {
+    user_name = js["user_name"] ?? "";
+    user_image = js["user_image"] ?? "";
+    comment = js["comment"] ?? "";
+    review_image = js["review_image"] ?? "";
+  }
+}

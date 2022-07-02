@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-ko/values-ko.xml",
+                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/5e083c06c9925c2309f02468fc66e376/transformed/core-1.7.0/res/values-ko/values-ko.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -47,11 +47,28 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "20",
+                        "startLines": "29",
                         "startColumns": "4",
-                        "startOffsets": "2541",
+                        "startOffsets": "3130",
                         "endColumns": "100",
-                        "endOffsets": "2637"
+                        "endOffsets": "3226"
+                    }
+                },
+                {
+                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/9c3e1c556f4536cd794cd7354f8dc080/transformed/jetified-exoplayer-core-2.17.1/res/values-ko/values-ko.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,114,172,232,288,360,419,501,581",
+                        "endColumns": "58,57,59,55,71,58,81,79,62",
+                        "endOffsets": "109,167,227,283,355,414,496,576,639"
+                    },
+                    "to": {
+                        "startLines": "20,21,22,23,24,25,26,27,28",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2541,2600,2658,2718,2774,2846,2905,2987,3067",
+                        "endColumns": "58,57,59,55,71,58,81,79,62",
+                        "endOffsets": "2595,2653,2713,2769,2841,2900,2982,3062,3125"
                     }
                 }
             ]

@@ -16,6 +16,12 @@ class HomeRepo {
     return TabModal(jsonResponse);
   }
 
+  Future<RatingModal> fetchRatingList(id) async {
+    final response = await homeApi.fetchRatingList(id);
+    var jsonResponse = jsonDecode(response.body) as Map;
+    return RatingModal(jsonResponse);
+  }
+
   Future<MenuTabimageModal> fetchmenuImage(id) async {
     final response = await homeApi.fetchmenuImage(id);
     var jsonResponse = jsonDecode(response.body) as List<dynamic>;

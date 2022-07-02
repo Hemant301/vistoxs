@@ -37,6 +37,22 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<RatingModal> _liveRatingList =
+      BehaviorSubject<RatingModal>();
+
+  BehaviorSubject<RatingModal> get getRatingList => _liveRatingList;
+
+  fetchRatingList(id) async {
+    try {
+      RatingModal homeSlider = await _homeRepo.fetchRatingList(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveRatingList.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<MenuTabimageModal> _liveMenuImage =
       BehaviorSubject<MenuTabimageModal>();
 

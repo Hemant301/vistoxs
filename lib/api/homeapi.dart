@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:vistox/utils/const.dart';
@@ -20,6 +21,32 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> doUploadProfile(File file, String userid) async {
+    var client = http.Client();
+    try {
+      var request = http.MultipartRequest(
+          "POST", Uri.parse("${baseUrl}cdn/review-image-uploader.php"));
+      //add text fields Uri.parse("http://192.168.29.30:8000/ajaxFile.php")
+      request.fields["user_id"] = userid;
+      //create multipart using filepath, string or bytes
+      var pic = await http.MultipartFile.fromPath("thumbnail", file.path);
+      //add multipart to request
+      request.files.add(pic);
+      var response = await request.send();
+
+      //Get the response from the server
+      var responseData = await response.stream.toBytes();
+      String responseString = String.fromCharCodes(responseData);
+      print(responseString);
+      return jsonDecode(responseString) as Map;
+    } catch (e) {
+      // print(e);
+      rethrow;
+    } finally {
+      client.close();
+    }
+  }
+
   Future<dynamic> fetchmenutab(id) async {
     try {
       final response = await client.post(
@@ -27,6 +54,22 @@ class HomeApi {
           body: {'super_tab_id': id});
       if (response.statusCode == 200) {
         // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchRatingList(id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}get-rating-vis.php"),
+          body: {'store_id': id});
+      if (response.statusCode == 200) {
+        print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -63,6 +106,7 @@ class HomeApi {
     String id = "",
     double rate = 0.0,
     String comment = "",
+    String image = "",
   }) async {
     var client = http.Client();
     try {
@@ -72,6 +116,7 @@ class HomeApi {
         'store_id': id,
         'rating': rate.toString(),
         'comment': comment,
+        'review_image': image
       });
       if (response.statusCode == 200) {
         print(response.body);

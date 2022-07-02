@@ -1,5 +1,7 @@
 # This is a generated file; do not edit or check into version control.
+file_picker=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-4.6.1/
 flutter_geocoder=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_geocoder-0.2.2-nullsafety/
+flutter_plugin_android_lifecycle=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/
 fluttertoast=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/
 geolocator=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-8.2.1/
 geolocator_android=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_android-3.2.0/
@@ -9,7 +11,7 @@ geolocator_windows=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.d
 location=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/location-4.4.0/
 location_web=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/location_web-3.1.1/
 path_provider_linux=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.7/
-path_provider_windows=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.1.0/
+path_provider_windows=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.7/
 shared_preferences=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.15/
 shared_preferences_android=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_android-2.0.12/
 shared_preferences_ios=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_ios-2.1.1/
@@ -17,3 +19,7 @@ shared_preferences_linux=/Users/thecybertize/Documents/flutter/.pub-cache/hosted
 shared_preferences_macos=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-2.0.4/
 shared_preferences_web=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.4/
 shared_preferences_windows=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.1.1/
+video_player=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-2.4.5/
+video_player_android=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_android-2.3.6/
+video_player_avfoundation=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_avfoundation-2.3.5/
+video_player_web=/Users/thecybertize/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-2.0.10/

@@ -4,7 +4,24 @@
             "outputFile": "/Users/thecybertize/Documents/FlutterApp/vistoxs/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-lo/values-lo.xml",
             "map": [
                 {
-                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-lo/values-lo.xml",
+                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/9c3e1c556f4536cd794cd7354f8dc080/transformed/jetified-exoplayer-core-2.17.1/res/values-lo/values-lo.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,124,185,251,316,391,461,553,640",
+                        "endColumns": "68,60,65,64,74,69,91,86,71",
+                        "endOffsets": "119,180,246,311,386,456,548,635,707"
+                    },
+                    "to": {
+                        "startLines": "20,21,22,23,24,25,26,27,28",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2848,2917,2978,3044,3109,3184,3254,3346,3433",
+                        "endColumns": "68,60,65,64,74,69,91,86,71",
+                        "endOffsets": "2912,2973,3039,3104,3179,3249,3341,3428,3500"
+                    }
+                },
+                {
+                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/5e083c06c9925c2309f02468fc66e376/transformed/core-1.7.0/res/values-lo/values-lo.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -13,11 +30,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "20",
+                        "startLines": "29",
                         "startColumns": "4",
-                        "startOffsets": "2848",
+                        "startOffsets": "3505",
                         "endColumns": "100",
-                        "endOffsets": "2944"
+                        "endOffsets": "3601"
                     }
                 },
                 {

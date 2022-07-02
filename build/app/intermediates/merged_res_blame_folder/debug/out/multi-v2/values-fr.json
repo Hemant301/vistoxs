@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-fr/values-fr.xml",
+                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/5e083c06c9925c2309f02468fc66e376/transformed/core-1.7.0/res/values-fr/values-fr.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -30,11 +30,28 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "20",
+                        "startLines": "29",
                         "startColumns": "4",
-                        "startOffsets": "2996",
+                        "startOffsets": "3709",
                         "endColumns": "100",
-                        "endOffsets": "3092"
+                        "endOffsets": "3805"
+                    }
+                },
+                {
+                    "source": "/Users/thecybertize/.gradle/caches/transforms-3/9c3e1c556f4536cd794cd7354f8dc080/transformed/jetified-exoplayer-core-2.17.1/res/values-fr/values-fr.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,129,194,263,335,418,495,592,685",
+                        "endColumns": "73,64,68,71,82,76,96,92,82",
+                        "endOffsets": "124,189,258,330,413,490,587,680,763"
+                    },
+                    "to": {
+                        "startLines": "20,21,22,23,24,25,26,27,28",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2996,3070,3135,3204,3276,3359,3436,3533,3626",
+                        "endColumns": "73,64,68,71,82,76,96,92,82",
+                        "endOffsets": "3065,3130,3199,3271,3354,3431,3528,3621,3704"
                     }
                 },
                 {
