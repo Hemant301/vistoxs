@@ -21,6 +21,52 @@ class HomeApi {
     } finally {}
   }
 
+  Future<dynamic> fetchHometabItems(id) async {
+    try {
+      final response = await client.post(
+          Uri.parse("${baseUrl}home_sub_tab_content.php"),
+          body: {'id': id});
+      if (response.statusCode == 200) {
+        //  print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchHomeTab() async {
+    try {
+      final response =
+          await client.get(Uri.parse("${baseUrl}get-home-sub-tab-vis.php"));
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
+  Future<dynamic> fetchHomeCusine() async {
+    try {
+      final response =
+          await client.get(Uri.parse("${baseUrl}get-food-cusine-vis.php"));
+      if (response.statusCode == 200) {
+        print(response.body);
+        return response;
+      } else {
+        // print('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      // print(e);
+    } finally {}
+  }
+
   Future<dynamic> doUploadProfile(File file, String userid) async {
     var client = http.Client();
     try {
@@ -69,7 +115,7 @@ class HomeApi {
           Uri.parse("${baseUrl}get-rating-vis.php"),
           body: {'store_id': id});
       if (response.statusCode == 200) {
-        print(response.body);
+        //  print(response.body);
         return response;
       } else {
         // print('Request failed with status: ${response.statusCode}.');
@@ -119,7 +165,7 @@ class HomeApi {
         'review_image': image
       });
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body) as Map;
       } else {
         print('Request failed with status: ${response.statusCode}.');

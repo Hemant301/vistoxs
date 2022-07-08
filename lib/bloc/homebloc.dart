@@ -21,6 +21,58 @@ class HomeBloc {
     }
   }
 
+  final BehaviorSubject<HomeTabdetailinnnerModal> _liveTabDetail =
+      BehaviorSubject<HomeTabdetailinnnerModal>();
+
+  BehaviorSubject<HomeTabdetailinnnerModal> get gettabdetail => _liveTabDetail;
+
+  fetchHometabItems(id) async {
+    try {
+      _liveTabDetail.addError('error');
+      HomeTabdetailinnnerModal homeSlider =
+          await _homeRepo.fetchHometabItems(id);
+      // print(homeSlider.imgs!.length);
+
+      _liveTabDetail.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<HomeTabModal> _liveTab =
+      BehaviorSubject<HomeTabModal>();
+
+  BehaviorSubject<HomeTabModal> get getHomeTab => _liveTab;
+
+  fetchHomeTab() async {
+    try {
+      _liveTab.addError('error');
+      HomeTabModal homeSlider = await _homeRepo.fetchHomeTab();
+      // print(homeSlider.imgs!.length);
+
+      _liveTab.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final BehaviorSubject<HomeCusineModal> _liveHomecusine =
+      BehaviorSubject<HomeCusineModal>();
+
+  BehaviorSubject<HomeCusineModal> get getHomeCusine => _liveHomecusine;
+
+  fetchHomeCusine() async {
+    try {
+      _liveHomecusine.addError('error');
+      HomeCusineModal homeSlider = await _homeRepo.fetchHomeCusine();
+      // print(homeSlider.imgs!.length);
+
+      _liveHomecusine.add(homeSlider);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final BehaviorSubject<TabModal> _livemenuTab = BehaviorSubject<TabModal>();
 
   BehaviorSubject<TabModal> get getMenuTab => _livemenuTab;

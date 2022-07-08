@@ -261,3 +261,70 @@ class ReviewModal {
     review_image = js["review_image"] ?? "";
   }
 }
+
+class HomeTabModal {
+  List<HomeTabDetailModal> data = [];
+  HomeTabModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(HomeTabDetailModal(js[i]));
+    }
+  }
+}
+
+class HomeTabDetailModal {
+  String? super_app_id;
+  String? name;
+
+  HomeTabDetailModal(js) {
+    name = js['name'] ?? "";
+    super_app_id = js['super_app_id'] ?? "";
+  }
+}
+
+class HomeTabdetailinnnerModal {
+  List<HomeTabdegtailsModal> data = [];
+  HomeTabdetailinnnerModal(js) {
+    for (var i = 0; i < js["store"].length; i++) {
+      data.add(HomeTabdegtailsModal(js["store"][i]));
+    }
+  }
+}
+
+class HomeTabdegtailsModal {
+  String? store_name;
+  String? store_image;
+  String? city_name;
+  String? distance;
+  String? store_address;
+  String? rating;
+
+  HomeTabdegtailsModal(js) {
+    store_name = js['store_name'] ?? "";
+    store_image = js['store_image'] ?? "";
+    city_name = js['city_name'] ?? "";
+    distance = js['distance'] ?? "";
+    store_address = js['store_address'] ?? "";
+    rating = js['rating'] ?? "";
+  }
+}
+
+class HomeCusineModal {
+  List<HomeCusineDetailModal> data = [];
+  HomeCusineModal(js) {
+    for (var i = 0; i < js.length; i++) {
+      data.add(HomeCusineDetailModal(js[i]));
+    }
+  }
+}
+
+class HomeCusineDetailModal {
+  String? id;
+  String? name;
+  String? image;
+
+  HomeCusineDetailModal(js) {
+    name = js['name'] ?? "";
+    id = js['id'] ?? "";
+    image = js['image'] ?? "";
+  }
+}

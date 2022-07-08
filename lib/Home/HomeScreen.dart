@@ -24,7 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     homebloc.fetchHomeSlider('0');
+    homebloc.fetchHomeTab();
     homebloc.fetchHomeCategory();
+    homebloc.fetchHomeCusine();
+    homebloc.fetchHometabItems("0");
     scrollController.addListener(() {
       if (scrollController.position.pixels > scrollPixel) {
         setState(() {
@@ -1548,213 +1551,251 @@ class _HomeScreenState extends State<HomeScreen> {
 
               //     //
               //     ),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
+              StreamBuilder<HomeTabModal>(
+                  stream: homebloc.getHomeTab.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            children: List.generate(
+                          snapshot.data!.data.length,
+                          (index) => Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    activeIndexfoCategory = index;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(15.0),
+                                  decoration: BoxDecoration(
+                                    color: activeIndexfoCategory == index
+                                        ? Color.fromARGB(255, 18, 94, 226)
+                                        : Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black45.withOpacity(.1),
+                                        spreadRadius: 2,
+                                        blurRadius: 2,
+                                        offset: Offset(
+                                            1, 2), // changes position of shadow
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    snapshot.data!.data[index].name!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: activeIndexfoCategory == index
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                              )),
+                        )));
+                  }),
+              StreamBuilder<HomeTabdetailinnnerModal>(
+                  stream: homebloc.gettabdetail.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) return Container();
+                    return Column(
                       children: List.generate(
-                    5,
-                    (index) => Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              activeIndexfoCategory = index;
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: activeIndexfoCategory == index
-                                  ? Color.fromARGB(255, 18, 94, 226)
-                                  : Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45.withOpacity(.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(
-                                      1, 2), // changes position of shadow
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "All",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: activeIndexfoCategory == index
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        )),
-                  ))),
-              Column(
-                children: List.generate(
-                    5,
-                    (index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    height:
-                                        MediaQuery.of(context).size.width / 3 -
-                                            10,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2 -
-                                            30,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                              "assets/dummy/macdonal.png",
-                                            ),
-                                            fit: BoxFit.fill)),
-                                  ),
-                                  Positioned(
-                                    top: -30,
-                                    child: Transform.rotate(
-                                      angle: 19.7,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            border: Border.all(
-                                                color: Color.fromARGB(
-                                                    238, 255, 200, 0))),
-                                        height: 100,
-                                        width: 35,
-                                        child: Transform.rotate(
-                                            angle: 4.8,
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Save 30%",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 7),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                      top: 10,
-                                      right: 10,
-                                      child: Container(
-                                          padding: EdgeInsets.all(2),
+                          snapshot.data!.data.length,
+                          (index) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3 -
+                                              10,
+                                          width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2 -
+                                              30,
                                           decoration: BoxDecoration(
-                                              color: Colors.green,
+                                              color: Colors.white,
                                               borderRadius:
-                                                  BorderRadius.circular(5)),
+                                                  BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    snapshot.data!.data[index]
+                                                        .store_image!,
+                                                  ),
+                                                  fit: BoxFit.fill)),
+                                        ),
+                                        Positioned(
+                                          top: -30,
+                                          child: Transform.rotate(
+                                            angle: 19.7,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  border: Border.all(
+                                                      color: Color.fromARGB(
+                                                          238, 255, 200, 0))),
+                                              height: 100,
+                                              width: 35,
+                                              child: Transform.rotate(
+                                                  angle: 4.8,
+                                                  child: Align(
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      "Save 30%",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 7),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                            top: 10,
+                                            right: 10,
+                                            child: Container(
+                                                padding: EdgeInsets.all(2),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
+                                                    Text(
+                                                      snapshot.data!.data[index]
+                                                          .distance!,
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                )))
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2 -
+                                                30,
+                                            child: Text(
+                                              snapshot.data!.data[index]
+                                                  .store_name!,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )),
+                                        SizedBox(
+                                          height: 3,
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3,
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
                                             children: [
                                               Icon(
-                                                Icons.star,
-                                                color: Colors.white,
+                                                Icons.pin_drop,
+                                                color: Colors.black,
                                                 size: 15,
                                               ),
-                                              Text(
-                                                "4.5",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          )))
-                                ],
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      width: MediaQuery.of(context).size.width /
-                                              2 -
-                                          30,
-                                      child: Text(
-                                        "Nike Andheri Sports Superstore",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      )),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 3,
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.pin_drop,
-                                          color: Colors.black,
-                                          size: 15,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: '8km',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                            children: const <TextSpan>[
-                                              TextSpan(
-                                                  text: ' sector 3',
+                                              RichText(
+                                                text: TextSpan(
+                                                  text: snapshot.data!
+                                                      .data[index].distance,
                                                   style: TextStyle(
-                                                      color: Colors.black54)),
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                        text:
+                                                            " ${snapshot.data!.data[index].city_name!}",
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .black54)),
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 2,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.5,
-                                    color: Colors.grey,
-                                  ),
-                                  Container(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 3),
-                                      width: MediaQuery.of(context).size.width /
-                                          2.5,
-                                      child: Text(
-                                        "Quick Bites, 400 for two",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 12),
-                                      )),
-                                  Container(
-                                      // padding: EdgeInsets.symmetric(vertical: 3),
-                                      width: MediaQuery.of(context).size.width /
-                                          2.5,
-                                      child: Text(
-                                        "2504 bought, last redeemed yesterday",
-                                        style: TextStyle(
+                                        Container(
+                                          height: 2,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2.5,
                                           color: Colors.grey,
                                         ),
-                                      )),
-                                ],
-                              )
-                            ],
-                          ),
-                        )),
-              )
+                                        Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 3),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2.5,
+                                            child: Text(
+                                              "Quick Bites, 400 for two",
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12),
+                                            )),
+                                        Container(
+                                            // padding: EdgeInsets.symmetric(vertical: 3),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                2.5,
+                                            child: Text(
+                                              "2504 bought, last redeemed yesterday",
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                              ),
+                                            )),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )),
+                    );
+                  })
             ]),
       ),
       floatingActionButton: showFilter == true
